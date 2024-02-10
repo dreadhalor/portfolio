@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { appIconJumpTopBound, appIconSizeSmall, apps } from './constants';
 import { AppSpace } from './components/app-space';
-import { useApp } from '@providers/app-provider';
+import { useApp } from './providers/app-provider';
 import { cn } from '@repo/utils';
 
 function ParentApp() {
@@ -86,6 +86,7 @@ function ParentApp() {
           />
         ))}
       </div>
+
       <button
         className='absolute z-10 rounded-md border-2 border-white'
         style={{

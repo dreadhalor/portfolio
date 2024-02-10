@@ -11,6 +11,7 @@ import {
 import { cn } from '@repo/utils';
 import { useRef, useState } from 'react';
 import { useApp } from '../providers/app-provider';
+import { Button, DatePicker } from 'dread-ui';
 type AppSpaceProps = {
   onClick: () => void;
   className?: string;
@@ -168,6 +169,8 @@ const AppSpace = ({
         >
           <h1 className='text-2xl font-bold'>{name}</h1>
           {description}
+          <Button variant={'default'}>WHAT</Button>
+          <DatePicker />
           <button
             className='rounded-md border-2 p-2'
             onClick={() => {
