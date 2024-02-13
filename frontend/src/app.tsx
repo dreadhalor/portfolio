@@ -1,138 +1,87 @@
-import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { appIconJumpTopBound, appIconSizeSmall, apps } from './constants';
-import { AppSpace } from './components/app-space';
-import { useApp } from './providers/app-provider';
+import { appIconSizeSmall, appSnapSpaceSize, perspective } from './constants';
+// import { throttle } from 'lodash';
+import { AppIcon } from './components/app-icon';
+import { AppImage } from './components/app-image';
 import { cn } from '@repo/utils';
+import './app.scss';
 
-function ParentApp() {
-  const { app, setApp, switcherOpen, setSwitcherOpen } = useApp();
-  // useEffect(() => {
-  //   setApp(apps[0].name);
-  // }, [setApp]);
+function App() {
+  const items = Array(20).fill(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+  const scrollIndex = offset / appSnapSpaceSize;
+  const [isOpen, setIsOpen] = useState(true);
 
-  const parentRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({
-    container: parentRef,
-  });
-  // function useParallax(value: MotionValue<number>, distance: number) {
-  //   return useTransform(value, [0, 1], [-distance, distance]);
-  // }
-  // const y = useParallax(scrollYProgress, 10);
-  useMotionValueEvent(scrollXProgress, 'change', (latest) => {
-    setWidth(latest * 100);
-  });
-  const [width, setWidth] = useState(0);
-  // console.log('width', width);
-  // console.log('apps', apps);
-
-  const getAvailableWidth = () => {
-    if (parentRef && parentRef.current) {
-      return parentRef.current.offsetWidth;
-    }
-    return window.innerWidth;
-  };
-  const getAvailableHeight = () => {
-    if (parentRef && parentRef.current) {
-      return parentRef.current.offsetHeight;
-    }
-    return window.innerHeight;
-  };
-  const biggestSquare = Math.min(
-    getAvailableWidth(),
-    getAvailableHeight() - appIconJumpTopBound,
-  );
-  const getPadding = () => {
-    return 0;
+  const handleScroll = () => {
+    const _offset = ref.current?.scrollLeft ?? 0;
+    window.requestAnimationFrame(() => {
+      setOffset(() => _offset);
+    });
   };
 
   return (
-    <div className='flex h-full w-full bg-blue-400'>
-      {app && (
-        <iframe
-          id='viewer'
-          src={app}
-          className={cn('fixed w-full', switcherOpen && 'pointer-events-none')}
-          style={{
-            height: `calc(100% - ${appIconSizeSmall}px)`,
-          }}
-        />
+    <div
+      ref={ref}
+      className='relative flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto border-0'
+      style={{
+        padding: `0 ${(window.innerWidth - appSnapSpaceSize) / 2}px`,
+      }}
+      onScroll={handleScroll}
+    >
+      <div className='fixed left-1/2 z-10 h-full w-px bg-white'></div>
+      {isOpen && (
+        <button
+          className='fixed bottom-4 left-1/2 h-12 w-12 -translate-x-1/2 rounded-full border'
+          onClick={() => setIsOpen(false)}
+        >
+          X
+        </button>
       )}
-      <div
-        className={cn(
-          'hide-scrollbar relative z-10 flex w-full flex-1 snap-x snap-mandatory flex-nowrap items-center overflow-auto overscroll-none',
-          !switcherOpen && 'pointer-events-none',
-        )}
-        style={{ paddingLeft: getPadding(), paddingRight: getPadding() }}
-        ref={parentRef}
-      >
-        <motion.div
-          className='fixed left-0 top-0 z-10 h-1 w-full bg-gray-500'
-          style={{ width: `${scrollXProgress.get() * 100}%` }}
+      {items.map((_, index) => (
+        <div
+          key={index}
+          className='shrink-0 snap-center border-0 border-red-500'
+          style={{ width: appSnapSpaceSize }}
         />
-        {/* <div
-        className="fixed right-0 top-1/2 z-10 h-1 w-full bg-gray-500"
-        style={{ width: `100%` }}
-      /> */}
-
-        {apps.map((app) => (
-          <AppSpace
-            key={app.name}
-            app={app}
-            onClick={() => setApp(app.url)}
-            parentRef={parentRef}
-            progress={width}
+      ))}
+      <div className='pointer-events-none fixed inset-0 overflow-hidden'>
+        {items.map((_, index) => (
+          <AppImage
+            key={index}
+            index={index}
+            scrollIndex={scrollIndex}
+            parentRef={ref}
+            isOpen={isOpen}
           />
         ))}
-      </div>
-
-      <button
-        className='absolute z-10 rounded-md border-2 border-white'
-        style={{
-          width: appIconSizeSmall,
-          height: appIconSizeSmall,
-          right: 0,
-          bottom: 0,
-        }}
-        onClick={() => setApp('')}
-      >
-        X
-      </button>
-      <div
-        className='absolute z-10 rounded-md border-2 border-white'
-        style={{
-          width: appIconSizeSmall,
-          height: appIconSizeSmall,
-          bottom: 0,
-          left: `calc(50% - ${appIconSizeSmall / 2}px)`,
-        }}
-      ></div>
-      {apps.map(({ name, icon, alt }, index) => (
-        <button
-          key={name}
-          className='absolute z-10 overflow-hidden rounded-md border border-gray-500'
+        <div
+          className={cn(
+            'absolute bottom-0 left-0 right-0 flex overflow-visible',
+            isOpen ? 'pointer-events-none' : 'pointer-events-auto',
+          )}
           style={{
-            width: appIconSizeSmall,
+            perspective,
             height: appIconSizeSmall,
-            bottom: 0,
-            left: `calc(50% - ${
-              scrollXProgress.get() * (apps.length - 1) * appIconSizeSmall
-            }px)`,
-            transform: `translateX(${-50 + 100 * index}%)`,
           }}
-          onClick={() => {
-            console.log('clicked', name);
-            setSwitcherOpen(true);
-            // const appSpace = document.getElementById(`${name}-space`);
-            // appSpace?.scrollIntoView({ behavior: 'smooth' });
+          onPointerDown={(e) => {
+            e.preventDefault();
+            setIsOpen(true);
           }}
         >
-          <img src={icon} alt={alt} />
-        </button>
-      ))}
+          {items.map((_, index) => (
+            <AppIcon
+              key={index}
+              index={index}
+              scrollIndex={scrollIndex}
+              parentRef={ref}
+              isOpen={isOpen}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-export { ParentApp as App };
+export { App };
