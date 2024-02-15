@@ -1,9 +1,15 @@
-import React, { createContext, useContext, useState } from 'react';
-import { appSnapSpaceSize } from '../constants';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
+import { appSnapSpaceSize, apps } from '../constants';
 
 type AppSwitcherContextType = {
   activeApp: string;
-  setActiveApp: React.Dispatch<React.SetStateAction<string>>;
+  setActiveApp: (app?: string) => void;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   offset: number;
@@ -26,16 +32,23 @@ type AppSwitcherProviderProps = {
   children: React.ReactNode;
 };
 export const AppSwitcherProvider = ({ children }: AppSwitcherProviderProps) => {
-  const [activeApp, setActiveApp] = useState<string>('');
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [activeApp, setActiveApp] = useState<string>('https://ui.shadcn.com/');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
+  const _setActiveApp = (app?: string) => {
+    setActiveApp(() => app ?? 'https://ui.shadcn.com/');
+  };
   const scrollIndex = offset / appSnapSpaceSize;
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [activeApp]);
 
   return (
     <AppSwitcherContext.Provider
       value={{
         activeApp,
-        setActiveApp,
+        setActiveApp: _setActiveApp,
         isOpen,
         setIsOpen,
         offset,

@@ -12,7 +12,7 @@ const Navbar = ({ parentRef }: NavbarProps) => {
   return (
     <div
       className={cn(
-        'absolute bottom-0 flex w-full overflow-visible border-0 border-red-500 bg-green-300',
+        'absolute bottom-0 flex w-full overflow-visible bg-transparent',
         isOpen ? 'pointer-events-none' : 'pointer-events-auto',
       )}
       style={{

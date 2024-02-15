@@ -1,31 +1,42 @@
-import { useRef, useState } from 'react';
-import { appIconSizeSmall, appSnapSpaceSize, perspective } from './constants';
-// import { throttle } from 'lodash';
-import { AppIcon } from './components/app-icon';
-import { AppImage } from './components/app-image';
+import { appIconSizeSmall, apps } from './constants';
 import { cn } from '@repo/utils';
-import { apps } from './constants';
 import './app.scss';
-import { Navbar } from './components/navbar';
 import { useAppSwitcher } from './providers/app-switcher-context';
 import { AppSwitcher } from './components/app-switcher';
+import { useEffect, useState } from 'react';
 
 function App() {
   const items = Array(20).fill(0);
-  const { isOpen } = useAppSwitcher();
+  const { isOpen, activeApp } = useAppSwitcher();
+  const [background, setBackground] = useState('bg-black');
+
+  useEffect(() => {
+    const app = apps.find(
+      (app) => app.url === activeApp || app.devUrl === activeApp,
+    );
+    if (app) {
+      setBackground(app.background);
+    }
+  }, [activeApp]);
 
   return (
-    <div className='relative flex h-full w-full'>
-      <div className='fixed left-1/2 z-10 h-full w-px bg-white'></div>
-      <div
+    <div
+      className='relative flex h-full w-full'
+      style={{
+        backgroundColor: background,
+      }}
+    >
+      {/* <div className='pointer-events-none fixed left-1/2 z-10 h-full w-px bg-white'></div> */}
+      <iframe
         className={cn(
-          'fixed left-0 right-0 top-0 bg-red-400',
+          'absolute left-0 top-0 w-full',
           isOpen ? 'pointer-events-none' : 'pointer-events-auto',
         )}
         style={{
-          bottom: appIconSizeSmall,
+          height: `calc(100% - ${appIconSizeSmall}px)`,
         }}
-      ></div>
+        src={activeApp}
+      />
       <AppSwitcher />
     </div>
   );

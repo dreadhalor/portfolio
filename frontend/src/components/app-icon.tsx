@@ -3,13 +3,13 @@ import { useLayoutEffect, useState } from 'react';
 import {
   appIconSizeLarge,
   appIconSizeSmall,
+  apps,
   getK,
   selectedAppIconMarginLarge,
   selectedAppIconMarginSmall,
 } from '../constants';
 import { cn } from '@repo/utils';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { Button } from 'dread-ui';
 type AppIconProps = {
   index: number;
   parentRef?: React.RefObject<HTMLDivElement>;
@@ -20,10 +20,13 @@ const AppIcon = ({
   parentRef,
   isSelectionBox = false,
 }: AppIconProps) => {
-  const { isOpen, scrollIndex } = useAppSwitcher();
+  const { isOpen, scrollIndex, setActiveApp } = useAppSwitcher();
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
   const normalizedX = isSelectionBox ? 0 : index - scrollIndex;
+  const app = apps[index];
+  const url = import.meta.env.PROD ? app?.url : app?.devUrl;
+  const icon = app?.icon;
 
   useLayoutEffect(() => {
     // we need to set open internally to trigger the animation
@@ -60,6 +63,7 @@ const AppIcon = ({
 
   const variants: Variants = {
     false: {
+      borderWidth: isSelectionBox ? 2 : 1,
       width: appIconSizeSmall,
       height: appIconSizeSmall,
       bottom: 0,
@@ -69,6 +73,7 @@ const AppIcon = ({
       transform: `translate3d(0px, 0px, 0px)`,
     },
     true: {
+      borderWidth: isSelectionBox ? 4 : 1,
       width: appIconSizeLarge,
       height: appIconSizeLarge,
       bottom: getIconBottom(),
@@ -85,10 +90,8 @@ const AppIcon = ({
   return (
     <motion.div
       className={cn(
-        'flex items-center justify-center rounded-sm border-white',
-        isSelectionBox
-          ? 'pointer-events-none fixed border-4'
-          : 'pointer-events-auto absolute border',
+        'absolute flex cursor-pointer items-center justify-center overflow-hidden rounded-sm border-white',
+        isSelectionBox ? 'pointer-events-none' : 'pointer-events-auto',
       )}
       style={{
         background: isSelectionBox
@@ -103,9 +106,23 @@ const AppIcon = ({
       onAnimationComplete={() => {
         setAnimating(() => false);
       }}
+      onClick={() => {
+        if (!isOpen) return;
+        setActiveApp(url);
+      }}
     >
-      {!isSelectionBox && <Button>hi</Button>}
-      {!isSelectionBox && index}
+      {!isSelectionBox &&
+        (icon ? (
+          <img
+            className='h-full w-full'
+            src={icon}
+            alt={app?.alt ?? 'app icon'}
+          />
+        ) : app?.alt ? (
+          app.alt
+        ) : (
+          index
+        ))}
     </motion.div>
   );
 };

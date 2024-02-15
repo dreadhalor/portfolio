@@ -1,17 +1,19 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { appIconSizeLarge } from '../constants';
+import { appIconSizeLarge, apps } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { Button } from 'dread-ui';
 
 type AppImageProps = {
   index: number;
   parentRef?: React.RefObject<HTMLDivElement>;
 };
 const AppImage = ({ index, parentRef }: AppImageProps) => {
-  const { isOpen, scrollIndex } = useAppSwitcher();
+  const { isOpen, scrollIndex, setActiveApp } = useAppSwitcher();
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
+  const app = apps[index];
+  const url = import.meta.env.PROD ? app?.url : app?.devUrl;
+  const image = app?.image;
 
   useLayoutEffect(() => {
     // we need to set open internally to trigger the animation
@@ -84,11 +86,11 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
 
   return (
     <motion.div
-      className='pointer-events-auto absolute'
+      className='absolute'
       style={{
         width: getHeight(),
         height: getWidth(),
-        left: (parentRef?.current?.offsetWidth - getWidth()) / 2,
+        left: ((parentRef?.current?.offsetWidth ?? 0) - getWidth()) / 2,
         transform: `translate3d(${
           -parallaxOffset + index * getWidthWithMargin()
         }px, 0, 0)`,
@@ -99,26 +101,20 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       onAnimationComplete={() => {
         setAnimating(() => false);
       }}
+      onClick={() => {
+        setActiveApp(url);
+      }}
     >
       <div
         ref={ref}
-        className='pointer-events-auto relative flex h-full w-full cursor-pointer items-center justify-center rounded-md border-8 transition-opacity duration-200'
+        className='relative flex h-full w-full cursor-pointer items-center justify-center rounded-md border-8 transition-opacity duration-200'
         style={{
           background: `hsl(${(index * 360) / 20}, 100%, 30%)`,
           opacity: Math.abs(normalizedX) > 1.1 ? 0 : 1,
         }}
       >
-        <div className='absolute left-1/2 h-full w-px bg-white'></div>
-        <Button variant='ghost'>TEST</Button>
-        {index}
-        <div
-          className='absolute top-1/2 h-12 w-12 bg-white/20'
-          style={{
-            left: ref.current?.offsetWidth
-              ? ref.current.offsetWidth / 2 + normalizedX * 100
-              : 0,
-          }}
-        ></div>
+        {/* <div className='absolute left-1/2 h-full w-px bg-white'></div> */}
+        {image ? <img src={image} className='h-full w-full' /> : index}
       </div>
     </motion.div>
   );
