@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { appIconSizeLarge, appSnapSpaceSize } from '../constants';
+import { appIconSizeLarge } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
 import { Button } from 'dread-ui';
@@ -9,7 +9,7 @@ type AppImageProps = {
   parentRef?: React.RefObject<HTMLDivElement>;
 };
 const AppImage = ({ index, parentRef }: AppImageProps) => {
-  const { isOpen, scrollIndex, offset } = useAppSwitcher();
+  const { isOpen, scrollIndex } = useAppSwitcher();
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
 
@@ -89,13 +89,6 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
         width: getHeight(),
         height: getWidth(),
         left: (parentRef?.current?.offsetWidth - getWidth()) / 2,
-        // getWidth() / 2 - index * getWidthWithMargin() + offset
-        // getWidth() / 2 + offset
-        // left: `calc(50% - ${
-        //   // getWidth() / 2 - index * getWidthWithMargin() + offset
-        //   // getWidth() / 2 + offset
-        //   getWidth() / 2 - index * getWidthWithMargin()
-        // }px)`,
         transform: `translate3d(${
           -parallaxOffset + index * getWidthWithMargin()
         }px, 0, 0)`,
@@ -106,10 +99,6 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       onAnimationComplete={() => {
         setAnimating(() => false);
       }}
-      // onPointerDown={(e) => {
-      //   e.preventDefault();
-      //   e.stopPropagation();
-      // }}
     >
       <div
         ref={ref}

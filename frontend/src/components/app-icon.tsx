@@ -13,13 +13,11 @@ import { Button } from 'dread-ui';
 type AppIconProps = {
   index: number;
   parentRef?: React.RefObject<HTMLDivElement>;
-  navbarRef?: React.RefObject<HTMLDivElement>;
   isSelectionBox?: boolean;
 };
 const AppIcon = ({
   index,
   parentRef,
-  navbarRef,
   isSelectionBox = false,
 }: AppIconProps) => {
   const { isOpen, scrollIndex } = useAppSwitcher();

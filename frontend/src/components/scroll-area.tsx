@@ -51,13 +51,6 @@ const ScrollArea = ({ parentRef }: ScrollAreaProps) => {
           }}
         />
       ))}
-      {/* <div
-        className='absolute left-0 top-0 z-30 overflow-hidden border-0 border-white'
-        style={{
-          width: window.innerWidth + appSnapSpaceSize * (apps.length - 1),
-          height: '100%',
-        }}
-      ></div> */}
       <div
         className='pointer-events-auto absolute inset-0 z-40 flex border-0 border-blue-400'
         style={{
