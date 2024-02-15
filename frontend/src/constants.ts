@@ -64,6 +64,20 @@ export const apps = [
     background: 'bg-pink-500',
     description: 'A simple, elegant, and modern web browser.',
   },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ] as const;
 
 export const appIconSizeSmall = 30;

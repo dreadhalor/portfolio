@@ -1,19 +1,15 @@
-import { useLayoutEffect, useState } from 'react';
-import { appIconSizeLarge } from '../constants';
+import { useLayoutEffect, useRef, useState } from 'react';
+import { appIconSizeLarge, appSnapSpaceSize } from '../constants';
 import { Variants, motion } from 'framer-motion';
+import { useAppSwitcher } from '../providers/app-switcher-context';
+import { Button } from 'dread-ui';
 
 type AppImageProps = {
   index: number;
-  scrollIndex: number;
   parentRef?: React.RefObject<HTMLDivElement>;
-  isOpen?: boolean;
 };
-const AppImage = ({
-  index,
-  scrollIndex,
-  parentRef,
-  isOpen = false,
-}: AppImageProps) => {
+const AppImage = ({ index, parentRef }: AppImageProps) => {
+  const { isOpen, scrollIndex, offset } = useAppSwitcher();
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
 
@@ -62,7 +58,7 @@ const AppImage = ({
     return getWidth() + 2 * marginX;
   };
 
-  const newOffset = scrollIndex * getWidthWithMargin();
+  const parallaxOffset = scrollIndex * getWidthWithMargin();
   const dist = Math.abs(normalizedX * getWidthWithMargin());
 
   const getBottom = () => {
@@ -84,14 +80,25 @@ const AppImage = ({
     },
   };
 
+  const ref = useRef<HTMLDivElement>(null);
+
   return (
     <motion.div
       className='absolute'
       style={{
         width: getHeight(),
         height: getWidth(),
-        left: `calc(50% - ${getWidth() / 2 - index * getWidthWithMargin()}px)`,
-        transform: `translate3d(${-newOffset}px, 0, 0)`,
+        left: (parentRef?.current?.offsetWidth - getWidth()) / 2 + offset,
+        // getWidth() / 2 - index * getWidthWithMargin() + offset
+        // getWidth() / 2 + offset
+        // left: `calc(50% - ${
+        //   // getWidth() / 2 - index * getWidthWithMargin() + offset
+        //   // getWidth() / 2 + offset
+        //   getWidth() / 2 - index * getWidthWithMargin()
+        // }px)`,
+        transform: `translate3d(${
+          -parallaxOffset + index * getWidthWithMargin()
+        }px, 0, 0)`,
       }}
       variants={variants}
       transition={{ duration: animating ? 0.2 : 0 }}
@@ -101,13 +108,24 @@ const AppImage = ({
       }}
     >
       <div
-        className='flex h-full w-full items-center justify-center rounded-md border-8 transition-opacity duration-200'
+        ref={ref}
+        className='pointer-events-auto relative flex h-full w-full cursor-pointer items-center justify-center rounded-md border-8 transition-opacity duration-200'
         style={{
           background: `hsl(${(index * 360) / 20}, 100%, 30%)`,
           opacity: Math.abs(normalizedX) > 1.1 ? 0 : 1,
         }}
       >
+        <div className='absolute left-1/2 h-full w-px bg-white'></div>
+        <Button variant='ghost'>TEST</Button>
         {index}
+        <div
+          className='absolute top-1/2 h-12 w-12 bg-white/20'
+          style={{
+            left: ref.current?.offsetWidth
+              ? ref.current.offsetWidth / 2 + normalizedX * 100
+              : 0,
+          }}
+        ></div>
       </div>
     </motion.div>
   );

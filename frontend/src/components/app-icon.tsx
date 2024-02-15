@@ -7,21 +7,23 @@ import {
   selectedAppIconMarginLarge,
   selectedAppIconMarginSmall,
 } from '../constants';
+import { cn } from '@repo/utils';
+import { useAppSwitcher } from '../providers/app-switcher-context';
+import { Button } from 'dread-ui';
 type AppIconProps = {
   index: number;
-  scrollIndex: number;
-  isOpen?: boolean;
   parentRef?: React.RefObject<HTMLDivElement>;
+  isSelectionBox?: boolean;
 };
 const AppIcon = ({
   index,
-  scrollIndex,
-  isOpen = false,
   parentRef,
+  isSelectionBox = false,
 }: AppIconProps) => {
+  const { isOpen, scrollIndex } = useAppSwitcher();
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
-  const normalizedX = index - scrollIndex;
+  const normalizedX = isSelectionBox ? 0 : index - scrollIndex;
 
   useLayoutEffect(() => {
     // we need to set open internally to trigger the animation
@@ -40,14 +42,17 @@ const AppIcon = ({
     return (getParentHeight() / 100) * 12;
   };
   const getTranslateZ = (dist: number, iconSize: number) => {
+    if (isSelectionBox) return 0;
     return -getK(iconSize, getParentWidth()) * Math.pow(dist, 2);
   };
   const getZIndex = () => {
+    if (isSelectionBox) return 1;
     const dist = Math.abs(normalizedX * appIconSizeLarge);
     return -Math.round(dist);
   };
 
   const getMarginOffset = (margin: number) => {
+    if (isSelectionBox) return 0;
     if (normalizedX > 0.5) return margin;
     if (normalizedX < -0.5) return -margin;
     return margin * 2 * normalizedX;
@@ -79,9 +84,16 @@ const AppIcon = ({
 
   return (
     <motion.div
-      className='absolute flex items-center justify-center rounded-sm border border-white'
+      className={cn(
+        'flex items-center justify-center rounded-sm border-white',
+        isSelectionBox
+          ? 'pointer-events-none fixed border-4'
+          : 'pointer-events-auto absolute border',
+      )}
       style={{
-        background: `hsl(${(index * 360) / 20}, 100%, 50%)`,
+        background: isSelectionBox
+          ? 'none'
+          : `hsl(${(index * 360) / 20}, 100%, 50%)`,
         willChange: 'transform', // Hint to browsers for optimizations
         zIndex: getZIndex(),
       }}
@@ -92,7 +104,8 @@ const AppIcon = ({
         setAnimating(() => false);
       }}
     >
-      {index}
+      {!isSelectionBox && <Button>hi</Button>}
+      {!isSelectionBox && index}
     </motion.div>
   );
 };
