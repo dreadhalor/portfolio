@@ -10,10 +10,10 @@ type ScrollAreaProps = {
 };
 const ScrollArea = ({ parentRef }: ScrollAreaProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen, setOffset } = useAppSwitcher();
 
   const handleScroll = () => {
-    console.log('handleScroll');
     const _offset = overlayRef.current?.scrollLeft ?? 0;
     window.requestAnimationFrame(() => {
       setOffset(() => _offset);
@@ -31,19 +31,8 @@ const ScrollArea = ({ parentRef }: ScrollAreaProps) => {
         isOpen ? 'pointer-events-auto' : 'pointer-events-none',
         // isOpen ? 'pointer-events-none' : 'pointer-events-none',
       )}
-      style={
-        {
-          // padding: `0 ${(window.innerWidth - appSnapSpaceSize) / 2}px`,
-        }
-      }
-      onPointerDown={(e) => {
-        if (isOpen && e.target === overlayRef.current) setIsOpen(false);
-      }}
       onScroll={handleScroll}
     >
-      {/* {apps.map((_, index) => (
-        <AppImage key={index} index={index} parentRef={overlayRef} />
-      ))} */}
       {apps.map((_, index) => (
         <div
           key={index}
@@ -62,27 +51,39 @@ const ScrollArea = ({ parentRef }: ScrollAreaProps) => {
           }}
         />
       ))}
-      <div
+      {/* <div
         className='absolute left-0 top-0 z-30 overflow-hidden border-0 border-white'
         style={{
           width: window.innerWidth + appSnapSpaceSize * (apps.length - 1),
           height: '100%',
         }}
-      >
-        <div className='relative h-full w-full border border-black'>
-          {apps.map((_, index) => (
-            <AppImage key={index} index={index} parentRef={overlayRef} />
-          ))}
-        </div>
-      </div>
+      ></div> */}
       <div
-        className='absolute left-0 top-0 z-40 flex border-2 border-blue-400'
+        className='pointer-events-auto absolute inset-0 z-40 flex border-0 border-blue-400'
         style={{
           width: window.innerWidth + appSnapSpaceSize * (apps.length - 1),
           height: '100%',
         }}
       >
-        <Navbar parentRef={parentRef} />
+        <div
+          className='sticky inset-0 overflow-hidden'
+          style={{
+            width: parentRef?.current?.offsetWidth,
+          }}
+        >
+          <div
+            ref={stickyRef}
+            className='relative h-full w-full border-4 border-blue-300'
+            onClick={(e) => {
+              if (isOpen && e.target === stickyRef.current) setIsOpen(false);
+            }}
+          >
+            {apps.map((_, index) => (
+              <AppImage key={index} index={index} parentRef={overlayRef} />
+            ))}
+            <Navbar parentRef={parentRef} />
+          </div>
+        </div>
       </div>
     </div>
   );

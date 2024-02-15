@@ -13,11 +13,13 @@ import { Button } from 'dread-ui';
 type AppIconProps = {
   index: number;
   parentRef?: React.RefObject<HTMLDivElement>;
+  navbarRef?: React.RefObject<HTMLDivElement>;
   isSelectionBox?: boolean;
 };
 const AppIcon = ({
   index,
   parentRef,
+  navbarRef,
   isSelectionBox = false,
 }: AppIconProps) => {
   const { isOpen, scrollIndex } = useAppSwitcher();
@@ -43,7 +45,7 @@ const AppIcon = ({
   };
   const getTranslateZ = (dist: number, iconSize: number) => {
     if (isSelectionBox) return 0;
-    return -getK(iconSize, getParentWidth()) * Math.pow(dist, 2);
+    return -getK(iconSize, Math.min(getParentWidth(), 800)) * Math.pow(dist, 2);
   };
   const getZIndex = () => {
     if (isSelectionBox) return 1;

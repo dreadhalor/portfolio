@@ -84,11 +84,11 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
 
   return (
     <motion.div
-      className='absolute'
+      className='pointer-events-auto absolute'
       style={{
         width: getHeight(),
         height: getWidth(),
-        left: (parentRef?.current?.offsetWidth - getWidth()) / 2 + offset,
+        left: (parentRef?.current?.offsetWidth - getWidth()) / 2,
         // getWidth() / 2 - index * getWidthWithMargin() + offset
         // getWidth() / 2 + offset
         // left: `calc(50% - ${
@@ -106,6 +106,10 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       onAnimationComplete={() => {
         setAnimating(() => false);
       }}
+      // onPointerDown={(e) => {
+      //   e.preventDefault();
+      //   e.stopPropagation();
+      // }}
     >
       <div
         ref={ref}

@@ -23,7 +23,6 @@ const AppSwitcher = () => {
       {/* <Navbar parentRef={overlayRef} /> */}
       {/* </div> */}
       <ScrollArea parentRef={overlayRef} />
-      <AppIcon index={-1} parentRef={overlayRef} isSelectionBox />
     </div>
   );
 };
