@@ -2,7 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import path from 'path';
 
 const app: Express = express();
-const PORT: number = parseInt(process.env.PORT as string, 10) || 3000;
+const PORT: number = 80;
+// const PORT: number = parseInt(process.env.PORT as string, 10) || 3000;
 
 // Middleware to serve static files
 app.use(express.static('public'));

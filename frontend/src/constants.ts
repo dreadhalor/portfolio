@@ -15,6 +15,7 @@ export const apps = [
   {
     name: 'test-child',
     url: '/test-child',
+    devUrl: '',
     icon: '',
     alt: 'Test App',
     image: '',
@@ -74,6 +75,7 @@ export const apps = [
   {
     name: 'dread-ui',
     url: '/dread-ui',
+    devUrl: '',
     icon: '',
     alt: 'dread ui',
     image: '',
