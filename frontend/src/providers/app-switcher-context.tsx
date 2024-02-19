@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { appSnapSpaceSize, apps } from '../constants';
 
 type AppSwitcherContextType = {
@@ -32,13 +32,10 @@ export const AppSwitcherProvider = ({ children }: AppSwitcherProviderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
   const _setActiveApp = (app?: string) => {
+    setIsOpen(false);
     setActiveApp(() => app ?? apps[0].devUrl);
   };
   const scrollIndex = offset / appSnapSpaceSize;
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [activeApp]);
 
   return (
     <AppSwitcherContext.Provider

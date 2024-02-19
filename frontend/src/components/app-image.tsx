@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { appIconSizeLarge, apps } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
+import { useNavigate } from 'react-router-dom';
 
 type AppImageProps = {
   index: number;
@@ -14,6 +15,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
   const app = apps[index];
   const url = import.meta.env.PROD ? app?.url : app?.devUrl;
   const image = app?.image;
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     // we need to set open internally to trigger the animation
@@ -103,6 +105,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       }}
       onClick={() => {
         setActiveApp(url);
+        navigate(`/#/${app?.name}`);
       }}
     >
       <div

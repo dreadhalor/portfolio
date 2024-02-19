@@ -1,14 +1,32 @@
 import { cn } from '@repo/utils';
 import { appSnapSpaceSize, apps } from '../constants';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
+import { useLocation } from 'react-router-dom';
 
 const AppSwitcher = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
-  const { isOpen, setIsOpen, setOffset } = useAppSwitcher();
+  const { isOpen, setIsOpen, setOffset, setActiveApp } = useAppSwitcher();
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    // this works, but we may want to use a better scrolling method
+    // literally Chrome has a bug where it freaks out if there's momentum on snap
+    for (const app of apps) {
+      if (location.hash === `#/${app.name}` && !isOpen) {
+        setActiveApp(app.devUrl);
+        if (overlayRef.current) {
+          overlayRef.current.scrollTo({
+            left: apps.indexOf(app) * appSnapSpaceSize,
+            behavior: 'instant',
+          });
+        }
+      }
+    }
+  }, [location, isOpen, setActiveApp]);
 
   const handleScroll = () => {
     const _offset = overlayRef.current?.scrollLeft ?? 0;
@@ -21,14 +39,16 @@ const AppSwitcher = () => {
     <div
       ref={overlayRef}
       className={cn(
-        'relative z-0 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
+        'no-scrollbar relative z-0 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
         isOpen ? 'bg-black/70' : 'bg-transparent',
         isOpen ? 'pointer-events-auto' : 'pointer-events-none',
       )}
       onScroll={handleScroll}
+      onWheel={() => setIsOpen(true)}
     >
       {apps.map((_, index) => (
         <div
+          id={`snap-${index}`}
           key={index}
           className={cn('z-20 shrink-0 border-0 border-red-500', 'snap-center')}
           style={{

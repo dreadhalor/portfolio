@@ -10,6 +10,7 @@ import {
 } from '../constants';
 import { cn } from '@repo/utils';
 import { useAppSwitcher } from '../providers/app-switcher-context';
+import { useNavigate } from 'react-router-dom';
 type AppIconProps = {
   index: number;
   parentRef?: React.RefObject<HTMLDivElement>;
@@ -27,6 +28,7 @@ const AppIcon = ({
   const app = apps[index];
   const url = import.meta.env.PROD ? app?.url : app?.devUrl;
   const icon = app?.icon;
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     // we need to set open internally to trigger the animation
@@ -63,7 +65,7 @@ const AppIcon = ({
 
   const variants: Variants = {
     false: {
-      borderWidth: isSelectionBox ? 2 : 1,
+      borderWidth: isSelectionBox ? 3 : 1,
       width: appIconSizeSmall,
       height: appIconSizeSmall,
       bottom: 0,
@@ -106,8 +108,10 @@ const AppIcon = ({
       onAnimationComplete={() => {
         setAnimating(() => false);
       }}
-      onClick={() => {
+      onClick={(e) => {
         if (!isOpen) return;
+        e.stopPropagation();
+        navigate(`/#/${app?.name}`);
         setActiveApp(url);
       }}
     >
