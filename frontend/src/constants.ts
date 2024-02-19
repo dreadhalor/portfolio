@@ -9,13 +9,15 @@ import {
   PathfinderVisualizerScreenshot,
   ShareMeIcon,
   ShareMeScreenshot,
+  SuDoneKuIcon,
+  SuDoneKuScreenshot,
 } from '@repo/assets';
 
 export const apps = [
   {
     name: 'test-child',
     url: '/test-child',
-    devUrl: '',
+    devUrl: 'http://localhost:3000/test-child/',
     icon: '',
     alt: 'Test App',
     image: '',
@@ -25,7 +27,7 @@ export const apps = [
   {
     name: 'enlight',
     url: '/enlight',
-    devUrl: 'https://dreadhalor.github.io/enlight/',
+    devUrl: 'http://localhost:3000/enlight/',
     icon: EnlightIcon,
     alt: 'Enlight Icon',
     image: EnlightScreenshot,
@@ -35,7 +37,7 @@ export const apps = [
   {
     name: 'minesweeper',
     url: '/minesweeper',
-    devUrl: 'https://dreadhalor.github.io/minesweeper/',
+    devUrl: 'http://localhost:3000/minesweeper/',
     icon: MinesweeperIcon,
     alt: 'Minesweeper Icon',
     image: MinesweeperScreenshot,
@@ -45,7 +47,7 @@ export const apps = [
   {
     name: 'pathfinder-visualizer',
     url: '/pathfinder-visualizer',
-    devUrl: 'https://dreadhalor.github.io/pathfinder-visualizer/',
+    devUrl: 'http://localhost:3000/pathfinder-visualizer/',
     icon: PathfinderVisualizerIcon,
     alt: 'Pathfinder Visualizer Icon',
     image: PathfinderVisualizerScreenshot,
@@ -65,7 +67,7 @@ export const apps = [
   {
     name: 'shareme',
     url: '/shareme',
-    devUrl: 'https://dreadhalor.github.io/shareme/',
+    devUrl: 'http://localhost:3000/shareme/',
     icon: ShareMeIcon,
     alt: 'ShareMe Icon',
     image: ShareMeScreenshot,
@@ -75,10 +77,20 @@ export const apps = [
   {
     name: 'dread-ui',
     url: '/dread-ui',
-    devUrl: '',
+    devUrl: 'http://localhost:3000/dread-ui/',
     icon: '',
     alt: 'dread ui',
     image: '',
+    background: 'rgb(31,47,134)',
+    description: 'A simple, elegant, and modern web browser.',
+  },
+  {
+    name: 'su-done-ku',
+    url: '/su-done-ku',
+    devUrl: 'http://localhost:3000/su-done-ku/',
+    icon: SuDoneKuIcon,
+    alt: 'su-done-ku',
+    image: SuDoneKuScreenshot,
     background: 'rgb(31,47,134)',
     description: 'A simple, elegant, and modern web browser.',
   },
