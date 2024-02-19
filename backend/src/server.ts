@@ -51,6 +51,12 @@ app.use(
   express.static(path.join(rootDirectory, 'apps/test-child/dist')),
 );
 
+// Serve steering-text
+app.use(
+  '/steering-text',
+  express.static(path.join(rootDirectory, 'apps/steering-text/dist')),
+);
+
 // Serve shareme
 app.use(
   '/shareme',

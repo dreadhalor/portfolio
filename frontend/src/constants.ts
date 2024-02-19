@@ -13,18 +13,29 @@ import {
   SuDoneKuScreenshot,
   GifsterScreenshot,
   DreadUiScreenshot,
+  SteeringTextScreenshot,
 } from '@repo/assets';
 
 export const apps = [
+  // {
+  //   name: 'test-child',
+  //   url: '/test-child',
+  //   devUrl: 'http://localhost:3000/test-child/',
+  //   icon: '',
+  //   alt: 'Test App',
+  //   image: '',
+  //   background: 'bg-red-500',
+  //   description: 'This is a test child app',
+  // },
   {
-    name: 'test-child',
-    url: '/test-child',
-    devUrl: 'http://localhost:3000/test-child/',
+    name: 'steering-text',
+    url: '/steering-text',
+    devUrl: 'http://localhost:3000/steering-text/',
     icon: '',
-    alt: 'Test App',
-    image: '',
-    background: 'bg-red-500',
-    description: 'This is a test child app',
+    alt: 'Steering Text',
+    image: SteeringTextScreenshot,
+    background: 'black',
+    description: 'Steering behavior, demonstrated through text.',
   },
   {
     name: 'enlight',
