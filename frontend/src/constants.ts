@@ -57,7 +57,7 @@ export const apps = [
   {
     name: 'ascii-video',
     url: '/ascii-video',
-    devUrl: '',
+    devUrl: 'http://localhost:3000/ascii-video/',
     icon: AsciiVideoIcon,
     alt: 'Matrix-Cam Icon',
     image: AsciiVideoScreenshot,

@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { appSnapSpaceSize, apps } from '../constants';
 
 type AppSwitcherContextType = {
@@ -23,7 +17,9 @@ export const AppSwitcherContext = createContext({} as AppSwitcherContextType);
 export const useAppSwitcher = () => {
   const context = useContext(AppSwitcherContext);
   if (!context) {
-    throw new Error('useBoard must be used within a BoardProvider');
+    throw new Error(
+      'useAppSwitcher must be used within an AppSwitcherProvider',
+    );
   }
   return context;
 };
@@ -32,11 +28,11 @@ type AppSwitcherProviderProps = {
   children: React.ReactNode;
 };
 export const AppSwitcherProvider = ({ children }: AppSwitcherProviderProps) => {
-  const [activeApp, setActiveApp] = useState<string>('https://ui.shadcn.com/');
+  const [activeApp, setActiveApp] = useState<string>(apps[0].devUrl);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
   const _setActiveApp = (app?: string) => {
-    setActiveApp(() => app ?? 'https://ui.shadcn.com/');
+    setActiveApp(() => app ?? apps[0].devUrl);
   };
   const scrollIndex = offset / appSnapSpaceSize;
 
