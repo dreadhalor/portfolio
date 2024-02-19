@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import path from 'path';
+import randomRouter from '@repo/su-done-ku-backend/src/routes/random';
 
 const app: Express = express();
 const PORT: number = 80;
@@ -45,6 +46,16 @@ app.use(
   '/test-child',
   express.static(path.join(__dirname, '../../../../apps/test-child/dist')),
 );
+
+// Serve su-done-ku
+app.use(
+  '/su-done-ku',
+  express.static(
+    path.join(__dirname, '../../../../apps/su-done-ku/frontend/dist'),
+  ),
+);
+
+app.use('/su-done-ku/api', randomRouter);
 
 // Serve portfolio
 app.use(
