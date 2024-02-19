@@ -94,6 +94,16 @@ export const apps = [
     background: 'rgb(31,47,134)',
     description: 'A simple, elegant, and modern web browser.',
   },
+  {
+    name: 'gifster',
+    url: '/gifster',
+    devUrl: 'http://localhost:3000/gifster/',
+    icon: '',
+    alt: 'gifster',
+    image: '',
+    background: 'rgb(31,47,134)',
+    description: 'A simple, elegant, and modern web browser.',
+  },
 ] as const;
 
 export const appIconSizeSmall = 30;

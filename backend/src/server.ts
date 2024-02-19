@@ -65,6 +65,12 @@ app.use(
 
 app.use('/su-done-ku/api/random', randomRouter);
 
+// Serve gifster
+app.use(
+  '/gifster',
+  express.static(path.join(rootDirectory, 'apps/gifster/dist')),
+);
+
 // Serve portfolio
 app.use(
   '/',
