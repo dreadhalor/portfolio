@@ -11,6 +11,8 @@ import {
   ShareMeScreenshot,
   SuDoneKuIcon,
   SuDoneKuScreenshot,
+  GifsterScreenshot,
+  DreadUiScreenshot,
 } from '@repo/assets';
 
 export const apps = [
@@ -32,7 +34,7 @@ export const apps = [
     alt: 'Enlight Icon',
     image: EnlightScreenshot,
     background: 'black',
-    description: 'A simple, elegant, and modern web browser.',
+    description: 'A relaxing playground of shine and shadow.',
   },
   {
     name: 'minesweeper',
@@ -42,7 +44,7 @@ export const apps = [
     alt: 'Minesweeper Icon',
     image: MinesweeperScreenshot,
     background: 'rgb(31,47,134)',
-    description: 'A classic game of Minesweeper.',
+    description: `Ittttttt's Minesweeper!`,
   },
   {
     name: 'pathfinder-visualizer',
@@ -52,7 +54,7 @@ export const apps = [
     alt: 'Pathfinder Visualizer Icon',
     image: PathfinderVisualizerScreenshot,
     background: 'rgb(108,117,125)',
-    description: 'A visualizer for pathfinding algorithms.',
+    description: 'A pathfinding visualizer, coded in React.',
   },
   {
     name: 'ascii-video',
@@ -62,7 +64,7 @@ export const apps = [
     alt: 'Matrix-Cam Icon',
     image: AsciiVideoScreenshot,
     background: 'black',
-    description: 'A webcam that renders video as ASCII.',
+    description: 'Vanilla JS app using TensorFlow.js for person detection.',
   },
   {
     name: 'shareme',
@@ -72,7 +74,7 @@ export const apps = [
     alt: 'ShareMe Icon',
     image: ShareMeScreenshot,
     background: 'rgb(20,20,20)',
-    description: 'A simple, elegant, and modern web browser.',
+    description: 'A Pinterest-inspired social media app.',
   },
   {
     name: 'dread-ui',
@@ -80,9 +82,9 @@ export const apps = [
     devUrl: 'http://localhost:3000/dread-ui/',
     icon: '',
     alt: 'dread ui',
-    image: '',
+    image: DreadUiScreenshot,
     background: 'rgb(31,47,134)',
-    description: 'A simple, elegant, and modern web browser.',
+    description: 'A component library I use across my projects.',
   },
   {
     name: 'su-done-ku',
@@ -92,7 +94,7 @@ export const apps = [
     alt: 'su-done-ku',
     image: SuDoneKuScreenshot,
     background: 'rgb(31,47,134)',
-    description: 'A simple, elegant, and modern web browser.',
+    description: 'All other Sudoku solvers are worse than this one.',
   },
   {
     name: 'gifster',
@@ -100,9 +102,9 @@ export const apps = [
     devUrl: 'http://localhost:3000/gifster/',
     icon: '',
     alt: 'gifster',
-    image: '',
+    image: GifsterScreenshot,
     background: 'rgb(31,47,134)',
-    description: 'A simple, elegant, and modern web browser.',
+    description: `We're not GIPHY, but we do use their API.`,
   },
 ] as const;
 

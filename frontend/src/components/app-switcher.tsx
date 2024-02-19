@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
 import { useLocation } from 'react-router-dom';
+import { Button } from 'dread-ui';
 
 const AppSwitcher = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -82,6 +83,7 @@ const AppSwitcher = () => {
               if (isOpen && e.target === stickyRef.current) setIsOpen(false);
             }}
           >
+            {/* <Button>hi</Button> */}
             {apps.map((_, index) => (
               <AppImage key={index} index={index} parentRef={overlayRef} />
             ))}

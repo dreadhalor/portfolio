@@ -110,12 +110,18 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
     >
       <div
         ref={ref}
-        className='relative flex h-full w-full cursor-pointer items-center justify-center rounded-md border-8 transition-opacity duration-200'
+        className='relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-md border-8 transition-opacity duration-200'
         style={{
           background: `hsl(${(index * 360) / 20}, 100%, 30%)`,
           opacity: Math.abs(normalizedX) > 1.1 ? 0 : 1,
         }}
       >
+        <div className='absolute inset-x-0 top-0 flex h-12 items-center justify-center bg-black/75 p-4 text-lg'>
+          {app?.name}
+        </div>
+        <div className='body-medium absolute inset-x-0 bottom-0 flex min-h-12 items-center justify-center bg-black/75 p-2 text-lg'>
+          {app?.description}
+        </div>
         {/* <div className='absolute left-1/2 h-full w-px bg-white'></div> */}
         {image ? <img src={image} className='h-full w-full' /> : index}
       </div>
