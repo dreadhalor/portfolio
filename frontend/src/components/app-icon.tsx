@@ -26,7 +26,6 @@ const AppIcon = ({
   const [internalOpen, setInternalOpen] = useState(false);
   const normalizedX = isSelectionBox ? 0 : index - scrollIndex;
   const app = apps[index];
-  const url = import.meta.env.PROD ? app?.url : app?.devUrl;
   const icon = app?.icon;
   const navigate = useNavigate();
 
@@ -112,7 +111,7 @@ const AppIcon = ({
         if (!isOpen) return;
         e.stopPropagation();
         navigate(`/#/${app?.name}`);
-        setActiveApp(url);
+        setActiveApp(app);
       }}
     >
       {!isSelectionBox &&

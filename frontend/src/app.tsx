@@ -1,4 +1,4 @@
-import { appIconSizeSmall, apps } from './constants';
+import { appIconSizeSmall, getAppUrl } from './constants';
 import { cn } from '@repo/utils';
 import './app.scss';
 import { useAppSwitcher } from './providers/app-switcher-context';
@@ -6,17 +6,11 @@ import { AppSwitcher } from './components/app-switcher';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const items = Array(20).fill(0);
   const { isOpen, activeApp } = useAppSwitcher();
   const [background, setBackground] = useState('bg-black');
 
   useEffect(() => {
-    const app = apps.find(
-      (app) => app.url === activeApp || app.devUrl === activeApp,
-    );
-    if (app) {
-      setBackground(app.background);
-    }
+    setBackground(activeApp.background);
   }, [activeApp]);
 
   return (
@@ -35,7 +29,7 @@ function App() {
         style={{
           height: `calc(100% - ${appIconSizeSmall}px)`,
         }}
-        src={activeApp}
+        src={getAppUrl(activeApp)}
       />
       <AppSwitcher />
     </div>

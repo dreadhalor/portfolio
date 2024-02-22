@@ -16,11 +16,18 @@ import {
   SteeringTextScreenshot,
 } from '@repo/assets';
 
+export const getAppUrl = (app?: PortfolioApp) => {
+  const protocol = window.location.protocol;
+  const prod = import.meta.env.PROD;
+  if (!app?.url) return '';
+  if (prod) return app.url;
+  return `${protocol}//${window.location.hostname}:3000${app.url}`;
+};
+
 export const apps = [
   // {
   //   name: 'test-child',
   //   url: '/test-child',
-  //   devUrl: 'http://localhost:3001/test-child/',
   //   icon: '',
   //   alt: 'Test App',
   //   image: '',
@@ -30,7 +37,6 @@ export const apps = [
   {
     name: 'steering-text',
     url: '/steering-text',
-    devUrl: 'http://localhost:3001/steering-text/',
     icon: '',
     alt: 'Steering Text',
     image: SteeringTextScreenshot,
@@ -40,7 +46,6 @@ export const apps = [
   {
     name: 'enlight',
     url: '/enlight',
-    devUrl: 'http://localhost:3001/enlight/',
     icon: EnlightIcon,
     alt: 'Enlight Icon',
     image: EnlightScreenshot,
@@ -50,7 +55,6 @@ export const apps = [
   {
     name: 'minesweeper',
     url: '/minesweeper',
-    devUrl: 'http://localhost:3001/minesweeper/',
     icon: MinesweeperIcon,
     alt: 'Minesweeper Icon',
     image: MinesweeperScreenshot,
@@ -60,7 +64,6 @@ export const apps = [
   {
     name: 'pathfinder-visualizer',
     url: '/pathfinder-visualizer',
-    devUrl: 'http://localhost:3001/pathfinder-visualizer/',
     icon: PathfinderVisualizerIcon,
     alt: 'Pathfinder Visualizer Icon',
     image: PathfinderVisualizerScreenshot,
@@ -70,7 +73,6 @@ export const apps = [
   {
     name: 'ascii-video',
     url: '/ascii-video',
-    devUrl: 'http://localhost:3001/ascii-video/',
     icon: AsciiVideoIcon,
     alt: 'Matrix-Cam Icon',
     image: AsciiVideoScreenshot,
@@ -80,7 +82,6 @@ export const apps = [
   {
     name: 'shareme',
     url: '/shareme',
-    devUrl: 'http://localhost:3001/shareme/',
     icon: ShareMeIcon,
     alt: 'ShareMe Icon',
     image: ShareMeScreenshot,
@@ -90,7 +91,6 @@ export const apps = [
   {
     name: 'dread-ui',
     url: '/dread-ui',
-    devUrl: 'http://localhost:3001/dread-ui/',
     icon: '',
     alt: 'dread ui',
     image: DreadUiScreenshot,
@@ -100,7 +100,6 @@ export const apps = [
   {
     name: 'sketches',
     url: '/sketches',
-    devUrl: 'http://localhost:3001/sketches/',
     icon: '',
     alt: 'sketches',
     image: '',
@@ -110,7 +109,6 @@ export const apps = [
   {
     name: 'su-done-ku',
     url: '/su-done-ku',
-    devUrl: 'http://localhost:3001/su-done-ku/',
     icon: SuDoneKuIcon,
     alt: 'su-done-ku',
     image: SuDoneKuScreenshot,
@@ -120,7 +118,6 @@ export const apps = [
   {
     name: 'gifster',
     url: '/gifster',
-    devUrl: 'http://localhost:3001/gifster/',
     icon: '',
     alt: 'gifster',
     image: GifsterScreenshot,
@@ -128,6 +125,7 @@ export const apps = [
     description: `We're not GIPHY, but we do use their API.`,
   },
 ] as const;
+export type PortfolioApp = (typeof apps)[number];
 
 export const appIconSizeSmall = 30;
 export const appIconSizeLarge = 80;

@@ -5,7 +5,6 @@ import { useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
 import { useLocation } from 'react-router-dom';
-import { Button } from 'dread-ui';
 
 const AppSwitcher = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -18,7 +17,7 @@ const AppSwitcher = () => {
     // literally Chrome has a bug where it freaks out if there's momentum on snap
     for (const app of apps) {
       if (location.hash === `#/${app.name}` && !isOpen) {
-        setActiveApp(app.devUrl);
+        setActiveApp(app);
         if (overlayRef.current) {
           overlayRef.current.scrollTo({
             left: apps.indexOf(app) * appSnapSpaceSize,
@@ -83,7 +82,6 @@ const AppSwitcher = () => {
               if (isOpen && e.target === stickyRef.current) setIsOpen(false);
             }}
           >
-            {/* <Button>hi</Button> */}
             {apps.map((_, index) => (
               <AppImage key={index} index={index} parentRef={overlayRef} />
             ))}

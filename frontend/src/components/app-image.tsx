@@ -13,7 +13,6 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
   const [animating, setAnimating] = useState(false);
   const [internalOpen, setInternalOpen] = useState(false);
   const app = apps[index];
-  const url = import.meta.env.PROD ? app?.url : app?.devUrl;
   const image = app?.image;
   const navigate = useNavigate();
 
@@ -104,7 +103,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
         setAnimating(() => false);
       }}
       onClick={() => {
-        setActiveApp(url);
+        setActiveApp(app);
         navigate(`/#/${app?.name}`);
       }}
     >
