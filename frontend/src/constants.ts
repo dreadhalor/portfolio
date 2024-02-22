@@ -98,6 +98,16 @@ export const apps = [
     description: 'A component library I use across my projects.',
   },
   {
+    name: 'sketches',
+    url: '/sketches',
+    devUrl: 'http://localhost:3000/sketches/',
+    icon: '',
+    alt: 'sketches',
+    image: '',
+    background: 'black',
+    description: 'Various p5 sketches to play around with.',
+  },
+  {
     name: 'su-done-ku',
     url: '/su-done-ku',
     devUrl: 'http://localhost:3000/su-done-ku/',

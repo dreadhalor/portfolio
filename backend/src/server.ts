@@ -77,6 +77,12 @@ app.use(
   express.static(path.join(rootDirectory, 'apps/gifster/dist')),
 );
 
+// Serve sketches
+app.use(
+  '/sketches',
+  express.static(path.join(rootDirectory, 'apps/sketches/dist')),
+);
+
 // Serve portfolio
 app.use(
   '/',
