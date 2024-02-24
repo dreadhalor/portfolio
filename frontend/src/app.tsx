@@ -4,6 +4,7 @@ import './app.scss';
 import { useAppSwitcher } from './providers/app-switcher-context';
 import { AppSwitcher } from './components/app-switcher';
 import { useEffect, useState } from 'react';
+import { Home } from './components/home';
 
 function App() {
   const { isOpen, activeApp } = useAppSwitcher();
@@ -20,18 +21,22 @@ function App() {
         backgroundColor: background,
       }}
     >
-      {/* <div className='pointer-events-none fixed left-1/2 z-10 h-full w-px bg-white'></div> */}
-      <iframe
-        className={cn(
-          'absolute left-0 top-0 w-full',
-          isOpen ? 'pointer-events-none' : 'pointer-events-auto',
-        )}
-        style={{
-          height: `calc(100% - ${appIconSizeSmall}px)`,
-        }}
-        src={getAppUrl(activeApp)}
-      />
-      <AppSwitcher />
+      {/* <Home /> */}
+      {true && (
+        <>
+          <iframe
+            className={cn(
+              'absolute left-0 top-0 w-full',
+              isOpen ? 'pointer-events-none' : 'pointer-events-auto',
+            )}
+            style={{
+              height: `calc(100% - ${appIconSizeSmall}px)`,
+            }}
+            src={getAppUrl(activeApp)}
+          />
+          <AppSwitcher />
+        </>
+      )}
     </div>
   );
 }
