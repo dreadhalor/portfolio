@@ -63,13 +63,13 @@ app.use(
   express.static(path.join(rootDirectory, 'apps/shareme/frontend/dist')),
 );
 
+app.use('/su-done-ku/api/random', randomRouter);
+
 // Serve su-done-ku
 app.use(
   '/su-done-ku',
   express.static(path.join(rootDirectory, 'apps/su-done-ku/frontend/dist')),
 );
-
-app.use('/su-done-ku/api/random', randomRouter);
 
 // Serve gifster
 app.use(
