@@ -1,15 +1,17 @@
 import { cn } from '@repo/utils';
 import { appSnapSpaceSize, apps } from '../constants';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
 import { useLocation } from 'react-router-dom';
+import { useIframe } from 'dread-ui';
 
 const AppSwitcher = ({ className }: { className?: string }) => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen, setOffset, setActiveApp } = useAppSwitcher();
+  const { receivedMessage, clearReceivedMessage } = useIframe();
   const location = useLocation();
 
   useLayoutEffect(() => {
@@ -27,6 +29,26 @@ const AppSwitcher = ({ className }: { className?: string }) => {
       }
     }
   }, [location, isOpen, setActiveApp]);
+
+  useEffect(() => {
+    const { type, link, payload } = receivedMessage ?? {};
+    if (!receivedMessage) return;
+    if (type === 'scroll-to-app') {
+      const app = apps.find((app) => app.url === link);
+      if (app) {
+        setIsOpen(true);
+        if (overlayRef.current) {
+          overlayRef.current.scrollTo({
+            left: apps.indexOf(app) * appSnapSpaceSize,
+            behavior: 'instant',
+          });
+        }
+      }
+    } else if (type === 'command' && payload === 'open-switcher') {
+      setIsOpen(true);
+    }
+    clearReceivedMessage();
+  }, [receivedMessage, setIsOpen, clearReceivedMessage]);
 
   const handleScroll = () => {
     const _offset = overlayRef.current?.scrollLeft ?? 0;

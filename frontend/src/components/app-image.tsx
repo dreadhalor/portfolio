@@ -109,7 +109,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
     >
       <div
         ref={ref}
-        className='relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-md border-8 transition-opacity duration-200'
+        className='relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-md border-8 text-center transition-opacity duration-200'
         style={{
           background: `hsl(${(index * 360) / 20}, 100%, 30%)`,
           opacity: Math.abs(normalizedX) > 1.1 ? 0 : 1,

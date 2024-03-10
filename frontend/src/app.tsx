@@ -3,6 +3,7 @@ import { cn } from '@repo/utils';
 import { useAppSwitcher } from './providers/app-switcher-context';
 import { AppSwitcher } from './components/app-switcher';
 import { useEffect, useState } from 'react';
+import { IframeChild } from 'dread-ui';
 
 function App() {
   const { isOpen, activeApp } = useAppSwitcher();
@@ -23,7 +24,7 @@ function App() {
       {true && (
         <>
           {true && (
-            <iframe
+            <IframeChild
               className={cn(
                 'absolute left-0 top-0 w-full',
                 isOpen ? 'pointer-events-none' : 'pointer-events-auto',

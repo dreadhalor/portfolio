@@ -5,14 +5,17 @@ import 'dread-ui/style.scss';
 import './index.scss';
 import { AppSwitcherProvider } from './providers/app-switcher-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { IframeProvider } from 'dread-ui';
 
 const router = createBrowserRouter([
   {
     path: '/*',
     element: (
-      <AppSwitcherProvider>
-        <App />
-      </AppSwitcherProvider>
+      <IframeProvider>
+        <AppSwitcherProvider>
+          <App />
+        </AppSwitcherProvider>
+      </IframeProvider>
     ),
   },
 ]);
