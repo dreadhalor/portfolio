@@ -25,15 +25,15 @@ export const getAppUrl = (app?: PortfolioApp) => {
 };
 
 export const apps = [
-  // {
-  //   name: 'test-child',
-  //   url: '/test-child',
-  //   icon: '',
-  //   alt: 'Test App',
-  //   image: '',
-  //   background: 'bg-red-500',
-  //   description: 'This is a test child app',
-  // },
+  {
+    name: 'home',
+    url: '/home',
+    icon: '',
+    alt: 'Home',
+    image: '',
+    background: 'transparent',
+    description: `Scott Hetrick's official portfolio homepage.`,
+  },
   {
     name: 'steering-text',
     url: '/steering-text',

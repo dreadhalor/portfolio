@@ -3,12 +3,9 @@ import { cn } from '@repo/utils';
 import { useAppSwitcher } from './providers/app-switcher-context';
 import { AppSwitcher } from './components/app-switcher';
 import { useEffect, useState } from 'react';
-import { Home } from './components/home';
-import { HomepageApp, useIntro } from 'home-page';
 
 function App() {
   const { isOpen, activeApp } = useAppSwitcher();
-  const { step } = useIntro();
   const [background, setBackground] = useState('bg-black');
 
   useEffect(() => {
@@ -25,10 +22,7 @@ function App() {
       {/* <Home /> */}
       {true && (
         <>
-          <div className='absolute inset-0'>
-            <HomepageApp />
-          </div>
-          {false && (
+          {true && (
             <iframe
               className={cn(
                 'absolute left-0 top-0 w-full',
@@ -40,12 +34,7 @@ function App() {
               src={getAppUrl(activeApp)}
             />
           )}
-          <AppSwitcher
-            className={cn(
-              'transition-transform',
-              step === 'homepage' ? 'translate-y-0' : 'translate-y-full',
-            )}
-          />
+          <AppSwitcher />
         </>
       )}
     </div>

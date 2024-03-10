@@ -45,10 +45,10 @@ app.use(
   express.static(path.join(rootDirectory, 'packages/dread-ui/dist')),
 );
 
-// Serve test-child
+// Serve homepage
 app.use(
-  '/test-child',
-  express.static(path.join(rootDirectory, 'apps/test-child/dist')),
+  '/home',
+  express.static(path.join(rootDirectory, 'apps/home-page/dist')),
 );
 
 // Serve steering-text
