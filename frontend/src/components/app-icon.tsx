@@ -91,7 +91,7 @@ const AppIcon = ({
   return (
     <motion.div
       className={cn(
-        'absolute flex cursor-pointer items-center justify-center overflow-hidden rounded-sm border-white',
+        'absolute flex cursor-pointer items-center justify-center overflow-hidden rounded-sm border-white text-center',
         isSelectionBox ? 'pointer-events-none' : 'pointer-events-auto',
       )}
       style={{
@@ -110,7 +110,7 @@ const AppIcon = ({
       onClick={(e) => {
         if (!isOpen) return;
         e.stopPropagation();
-        navigate(`/#/${app?.name}`);
+        navigate(`/#${app?.url}`);
         setActiveApp(app);
       }}
     >

@@ -26,7 +26,7 @@ export const getAppUrl = (app?: PortfolioApp) => {
 
 export const apps = [
   {
-    name: 'home',
+    name: 'homepage',
     url: '/home',
     icon: '',
     alt: 'Home',

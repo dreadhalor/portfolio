@@ -1,7 +1,7 @@
 import { cn } from '@repo/utils';
 import { appSnapSpaceSize, apps } from '../constants';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { CSSProperties, useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
 import { useLocation } from 'react-router-dom';
@@ -16,7 +16,7 @@ const AppSwitcher = ({ className }: { className?: string }) => {
     // this works, but we may want to use a better scrolling method
     // literally Chrome has a bug where it freaks out if there's momentum on snap
     for (const app of apps) {
-      if (location.hash === `#/${app.name}` && !isOpen) {
+      if (location.hash === `#${app.url}` && !isOpen) {
         setActiveApp(app);
         if (overlayRef.current) {
           overlayRef.current.scrollTo({

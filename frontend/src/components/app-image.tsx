@@ -104,7 +104,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       }}
       onClick={() => {
         setActiveApp(app);
-        navigate(`/#/${app?.name}`);
+        navigate(`/#${app?.url}`);
       }}
     >
       <div
