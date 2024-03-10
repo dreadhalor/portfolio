@@ -1,12 +1,12 @@
 import { cn } from '@repo/utils';
 import { appSnapSpaceSize, apps } from '../constants';
 import { useAppSwitcher } from '../providers/app-switcher-context';
-import { useLayoutEffect, useRef } from 'react';
+import { CSSProperties, useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';
 import { useLocation } from 'react-router-dom';
 
-const AppSwitcher = () => {
+const AppSwitcher = ({ className }: { className?: string }) => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen, setOffset, setActiveApp } = useAppSwitcher();
@@ -39,9 +39,10 @@ const AppSwitcher = () => {
     <div
       ref={overlayRef}
       className={cn(
-        'no-scrollbar relative z-0 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
+        'no-scrollbar relative z-10 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
         isOpen ? 'bg-black/70' : 'bg-transparent',
         isOpen ? 'pointer-events-auto' : 'pointer-events-none',
+        className,
       )}
       onScroll={handleScroll}
       onWheel={() => setIsOpen(true)}
