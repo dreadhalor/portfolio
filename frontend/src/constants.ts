@@ -14,6 +14,13 @@ import {
   GifsterScreenshot,
   DreadUiScreenshot,
   SteeringTextScreenshot,
+  SketchesIcon,
+  SketchesScreenshot,
+  HomepageScreenshot,
+  HomepageIcon,
+  SteeringTextIcon,
+  GifsterIcon,
+  DreadUiIcon,
 } from '@repo/assets';
 
 export const getAppUrl = (app?: PortfolioApp) => {
@@ -28,20 +35,11 @@ export const apps = [
   {
     name: 'homepage',
     url: '/home',
-    icon: '',
+    icon: HomepageIcon,
     alt: 'Home',
-    image: '',
+    image: HomepageScreenshot,
     background: 'transparent',
     description: `Scott Hetrick's official portfolio homepage.`,
-  },
-  {
-    name: 'steering-text',
-    url: '/steering-text',
-    icon: '',
-    alt: 'Steering Text',
-    image: SteeringTextScreenshot,
-    background: 'black',
-    description: 'Steering behavior, demonstrated through text.',
   },
   {
     name: 'enlight',
@@ -91,7 +89,7 @@ export const apps = [
   {
     name: 'dread-ui',
     url: '/dread-ui',
-    icon: '',
+    icon: DreadUiIcon,
     alt: 'dread ui',
     image: DreadUiScreenshot,
     background: 'rgb(31,47,134)',
@@ -100,9 +98,9 @@ export const apps = [
   {
     name: 'sketches',
     url: '/sketches',
-    icon: '',
+    icon: SketchesIcon,
     alt: 'sketches',
-    image: '',
+    image: SketchesScreenshot,
     background: 'black',
     description: 'Various p5 sketches to play around with.',
   },
@@ -116,9 +114,18 @@ export const apps = [
     description: 'All other Sudoku solvers are worse than this one.',
   },
   {
+    name: 'steering-text',
+    url: '/steering-text',
+    icon: SteeringTextIcon,
+    alt: 'Steering Text',
+    image: SteeringTextScreenshot,
+    background: 'black',
+    description: 'Steering behavior, demonstrated through text.',
+  },
+  {
     name: 'gifster',
     url: '/gifster',
-    icon: '',
+    icon: GifsterIcon,
     alt: 'gifster',
     image: GifsterScreenshot,
     background: 'rgb(31,47,134)',
