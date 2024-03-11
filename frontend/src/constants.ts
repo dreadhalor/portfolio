@@ -21,6 +21,8 @@ import {
   SteeringTextIcon,
   GifsterIcon,
   DreadUiIcon,
+  FallcrateIcon,
+  FallcrateScreenshot,
 } from '@repo/assets';
 
 export const getAppUrl = (app?: PortfolioApp) => {
@@ -89,9 +91,9 @@ export const apps = [
   {
     name: 'fallcrate',
     url: '/fallcrate',
-    icon: '',
+    icon: FallcrateIcon,
     alt: 'Fallcrate Icon',
-    image: '',
+    image: FallcrateScreenshot,
     background: 'white',
     description:
       'A Dropbox-inspired full-stack web app for sharing and organizing files.',
