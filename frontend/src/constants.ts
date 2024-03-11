@@ -87,6 +87,16 @@ export const apps = [
     description: 'A Pinterest-inspired social media app.',
   },
   {
+    name: 'fallcrate',
+    url: '/fallcrate',
+    icon: '',
+    alt: 'Fallcrate Icon',
+    image: '',
+    background: 'white',
+    description:
+      'A Dropbox-inspired full-stack web app for sharing and organizing files.',
+  },
+  {
     name: 'dread-ui',
     url: '/dread-ui',
     icon: DreadUiIcon,

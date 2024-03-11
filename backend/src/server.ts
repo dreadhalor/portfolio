@@ -83,6 +83,12 @@ app.use(
   express.static(path.join(rootDirectory, 'apps/sketches/dist')),
 );
 
+// Serve fallcrate
+app.use(
+  '/fallcrate',
+  express.static(path.join(rootDirectory, 'apps/fallcrate/dist')),
+);
+
 // Serve portfolio
 app.use(
   '/',
