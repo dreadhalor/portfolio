@@ -11,6 +11,7 @@ const router = createBrowserRouter([
   {
     path: '/*',
     element: (
+      // the frontend doesn't actually handle any dread-ui stuff, so just use the iframe provider
       <IframeProvider>
         <AppSwitcherProvider>
           <App />
