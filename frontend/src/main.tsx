@@ -5,7 +5,7 @@ import 'dread-ui/style.scss';
 import './index.scss';
 import { AppSwitcherProvider } from './providers/app-switcher-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { IframeProvider } from 'dread-ui';
+import { IframeProvider, TooltipProvider } from 'dread-ui';
 
 const router = createBrowserRouter([
   {
@@ -13,9 +13,11 @@ const router = createBrowserRouter([
     element: (
       // the frontend doesn't actually handle any dread-ui stuff, so just use the iframe provider
       <IframeProvider>
-        <AppSwitcherProvider>
-          <App />
-        </AppSwitcherProvider>
+        <TooltipProvider>
+          <AppSwitcherProvider>
+            <App />
+          </AppSwitcherProvider>
+        </TooltipProvider>
       </IframeProvider>
     ),
   },

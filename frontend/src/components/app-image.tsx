@@ -3,6 +3,9 @@ import { appIconSizeLarge, apps } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
 import { useNavigate } from 'react-router-dom';
+import { FaGithub } from 'react-icons/fa';
+import { GiLaurelCrown } from 'react-icons/gi';
+import { Tooltip, TooltipContent, TooltipTrigger } from 'dread-ui';
 
 type AppImageProps = {
   index: number;
@@ -122,7 +125,39 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
           {app?.description}
         </div>
         {/* <div className='absolute left-1/2 h-full w-px bg-white'></div> */}
-        {image ? <img src={image} className='h-full w-full' /> : index}
+        {image ? (
+          <img
+            onDragStart={(e) => e.preventDefault()}
+            src={image}
+            className='h-full w-full'
+          />
+        ) : (
+          index
+        )}
+        <div className='absolute right-2 top-2 flex gap-2 text-white'>
+          {app?.achievements && (
+            <Tooltip delayDuration={0} disableHoverableContent>
+              <TooltipTrigger>
+                <GiLaurelCrown className='h-8 w-8' />
+              </TooltipTrigger>
+              <TooltipContent sideOffset={10}>
+                Achievements Enabled
+              </TooltipContent>
+            </Tooltip>
+          )}
+          <Tooltip delayDuration={0} disableHoverableContent>
+            <TooltipTrigger>
+              <FaGithub
+                className='h-8 w-8 transition-transform duration-200 hover:scale-105'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(app?.github, '_blank');
+                }}
+              />
+            </TooltipTrigger>
+            <TooltipContent sideOffset={10}>View on GitHub</TooltipContent>
+          </Tooltip>
+        </div>
       </div>
     </motion.div>
   );
