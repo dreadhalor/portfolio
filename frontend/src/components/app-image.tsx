@@ -149,7 +149,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
             <TooltipTrigger>
               <FaGithub
                 className='h-8 w-8 transition-transform duration-200 hover:scale-105'
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) => {
                   e.stopPropagation();
                   window.open(app?.github, '_blank');
                 }}
