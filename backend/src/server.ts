@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import path from 'path';
 import randomRouter from '@repo/su-done-ku-backend/src/routes/random';
+import { execSync } from 'child_process';
 
 const app: Express = express();
 const PORT: number = 3000;
@@ -10,10 +11,37 @@ const PORT: number = 3000;
 // enable cors
 app.use(cors());
 
+// For webhook: parse JSON request bodies
+app.use(express.json());
+
+// For webhook: parse URL-encoded request bodies
+app.use(express.urlencoded({ extended: true }));
+
 // Middleware to serve static files
 app.use(express.static('public'));
 
 const rootDirectory = path.join(__dirname, '../../../..');
+
+// webhook to trigger re-builds
+app.post('/webhook', (req: Request, res: Response) => {
+  if (req.body.event === 'push') {
+    console.log('Received push event. Pulling new changes...');
+
+    try {
+      execSync('git pull', { cwd: rootDirectory });
+      console.log('Changes pulled successfully.');
+
+      console.log('Rebuilding affected projects...');
+      // don't build anything until we can prove that the webhook works
+      // execSync('pnpm build', { cwd: rootDirectory });
+      console.log('Rebuild completed.');
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
+  }
+
+  res.sendStatus(200);
+});
 
 // Serve pathfinder-visualizer
 app.use(
