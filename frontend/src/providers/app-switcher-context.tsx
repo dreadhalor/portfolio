@@ -14,6 +14,7 @@ type AppSwitcherContextType = {
 // Create a new context for the app switcher
 export const AppSwitcherContext = createContext({} as AppSwitcherContextType);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppSwitcher = () => {
   const context = useContext(AppSwitcherContext);
   if (!context) {
