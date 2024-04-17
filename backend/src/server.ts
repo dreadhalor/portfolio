@@ -32,7 +32,8 @@ app.post('/webhook', (req: Request, res: Response) => {
       console.log('Changes pulled successfully.');
 
       console.log('Rebuilding affected projects...');
-      execSync('pnpm build', {
+      console.log('Vercel token:', process.env.VERCEL_TOKEN);
+      execSync(`pnpm dlx turbo build --token=${process.env.VERCEL_TOKEN} `, {
         cwd: rootDirectory,
       });
       console.log('Rebuild completed.');
