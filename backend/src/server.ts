@@ -32,8 +32,7 @@ app.post('/webhook', (req: Request, res: Response) => {
       console.log('Changes pulled successfully.');
 
       console.log('Rebuilding affected projects...');
-      // don't build anything until we can prove that the webhook works
-      execSync('pnpm build', { cwd: rootDirectory });
+      execSync('turbo run build --concurrency=1', { cwd: rootDirectory });
       console.log('Rebuild completed.');
     } catch (error) {
       console.error('Error occurred:', error);
