@@ -33,9 +33,12 @@ app.post('/webhook', (req: Request, res: Response) => {
 
       console.log('Rebuilding affected projects...');
       console.log('Vercel token:', process.env.VERCEL_TOKEN);
-      execSync(`pnpm dlx turbo build --token=${process.env.VERCEL_TOKEN} `, {
-        cwd: rootDirectory,
-      });
+      execSync(
+        `pnpm dlx turbo build --token=${process.env.VERCEL_TOKEN} --team=dreadhalors-projects --remote-only`,
+        {
+          cwd: rootDirectory,
+        },
+      );
       console.log('Rebuild completed.');
     } catch (error) {
       console.error('Error occurred:', error);
