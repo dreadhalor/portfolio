@@ -33,7 +33,7 @@ app.post('/webhook', (req: Request, res: Response) => {
 
       console.log('Rebuilding affected projects...');
       // don't build anything until we can prove that the webhook works
-      // execSync('pnpm build', { cwd: rootDirectory });
+      execSync('pnpm build', { cwd: rootDirectory });
       console.log('Rebuild completed.');
     } catch (error) {
       console.error('Error occurred:', error);
