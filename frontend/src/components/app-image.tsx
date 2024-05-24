@@ -3,7 +3,11 @@ import { appIconSizeLarge, apps } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
 import { useNavigate } from 'react-router-dom';
-import { FaGithub } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaExternalLinkSquareAlt,
+  FaExternalLinkAlt,
+} from 'react-icons/fa';
 import { GiLaurelCrown } from 'react-icons/gi';
 import { Tooltip, TooltipContent, TooltipTrigger } from 'dread-ui';
 
@@ -107,7 +111,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
       }}
       onClick={() => {
         setActiveApp(app);
-        navigate(`/#${app?.url}`);
+        navigate(`/#/${app?.id}`);
       }}
     >
       <div
@@ -118,13 +122,12 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
           opacity: Math.abs(normalizedX) > 1.1 ? 0 : 1,
         }}
       >
-        <div className='absolute inset-x-0 top-0 flex h-12 items-center justify-center bg-black/75 p-4 text-lg'>
+        <div className='absolute inset-x-0 top-0 flex h-12 items-center justify-center bg-black/75 p-4 text-sm sm:text-lg'>
           {app?.name}
         </div>
-        <div className='body-medium absolute inset-x-0 bottom-0 flex min-h-12 items-center justify-center bg-black/75 p-2 text-lg'>
+        <div className='body-medium absolute inset-x-0 bottom-0 flex min-h-12 items-center justify-center bg-black/75 p-2 text-sm sm:text-lg'>
           {app?.description}
         </div>
-        {/* <div className='absolute left-1/2 h-full w-px bg-white'></div> */}
         {image ? (
           <img
             onDragStart={(e) => e.preventDefault()}
@@ -135,9 +138,23 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
           index
         )}
         <div className='absolute right-2 top-2 flex gap-2 text-white'>
+          {app?.external && (
+            <Tooltip delayDuration={0} disableHoverableContent>
+              <TooltipTrigger className='transition-transform duration-200 hover:scale-105'>
+                <FaExternalLinkAlt
+                  className='h-6 w-6'
+                  onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) => {
+                    e.stopPropagation();
+                    window.open(app?.url, '_blank');
+                  }}
+                />
+              </TooltipTrigger>
+              <TooltipContent sideOffset={10}>Go to site</TooltipContent>
+            </Tooltip>
+          )}
           {app?.achievements && (
             <Tooltip delayDuration={0} disableHoverableContent>
-              <TooltipTrigger>
+              <TooltipTrigger className='cursor-auto transition-transform duration-200 hover:scale-105'>
                 <GiLaurelCrown className='h-8 w-8' />
               </TooltipTrigger>
               <TooltipContent sideOffset={10}>
@@ -146,9 +163,9 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
             </Tooltip>
           )}
           <Tooltip delayDuration={0} disableHoverableContent>
-            <TooltipTrigger>
+            <TooltipTrigger className='transition-transform duration-200 hover:scale-105'>
               <FaGithub
-                className='h-8 w-8 transition-transform duration-200 hover:scale-105'
+                className='h-8 w-8'
                 onClick={(e: React.MouseEvent<SVGElement, MouseEvent>) => {
                   e.stopPropagation();
                   window.open(app?.github, '_blank');

@@ -18,7 +18,7 @@ const AppSwitcher = ({ className }: { className?: string }) => {
     // this works, but we may want to use a better scrolling method
     // literally Chrome has a bug where it freaks out if there's momentum on snap
     for (const app of apps) {
-      if (location.hash === `#${app.url}` && !isOpen) {
+      if (location.hash === `#/${app.id}` && !isOpen) {
         setActiveApp(app);
         if (overlayRef.current) {
           overlayRef.current.scrollTo({
@@ -31,10 +31,10 @@ const AppSwitcher = ({ className }: { className?: string }) => {
   }, [location, isOpen, setActiveApp]);
 
   useEffect(() => {
-    const { type, link, payload } = receivedMessage ?? {};
+    const { type, id, payload } = receivedMessage ?? {};
     if (!receivedMessage) return;
     if (type === 'scroll-to-app') {
-      const app = apps.find((app) => app.url === link);
+      const app = apps.find((app) => app.id === id);
       if (app) {
         setIsOpen(true);
         if (overlayRef.current) {

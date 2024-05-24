@@ -110,7 +110,7 @@ const AppIcon = ({
       onClick={(e) => {
         if (!isOpen) return;
         e.stopPropagation();
-        navigate(`/#${app?.url}`);
+        navigate(`/#/${app?.id}`);
         setActiveApp(app);
       }}
     >

@@ -23,9 +23,14 @@ import {
   DreadUiIcon,
   FallcrateIcon,
   FallcrateScreenshot,
+  HermitcraftHornsIcon,
+  HermitcraftHornsScreenshot,
+  DredgedUpIcon,
+  DredgedUpScreenshot,
 } from '@repo/assets';
 
-export const getAppUrl = (app?: PortfolioApp) => {
+export const getAppUrl = (app?: PortfolioApp, external = false) => {
+  if (external) return app?.url;
   const protocol = window.location.protocol;
   const prod = import.meta.env.PROD;
   if (!app?.url) return '';
@@ -35,7 +40,8 @@ export const getAppUrl = (app?: PortfolioApp) => {
 
 export const apps = [
   {
-    name: 'homepage',
+    id: 'home',
+    name: 'Homepage',
     url: '/home',
     github: 'https://github.com/dreadhalor/dreadfolio/tree/main/apps/home-page',
     icon: HomepageIcon,
@@ -44,9 +50,24 @@ export const apps = [
     background: 'transparent',
     description: `Scott Hetrick's official portfolio homepage.`,
     achievements: true,
+    external: false,
   },
   {
-    name: 'enlight',
+    id: 'hermitcraft-horns',
+    name: 'HermitCraft Horns',
+    url: 'https://hermitcraft-horns.com',
+    github: 'https://www.github.com/dreadhalor/hermitcraft-horns',
+    icon: HermitcraftHornsIcon,
+    alt: 'Hermitcraft Horns Icon',
+    image: HermitcraftHornsScreenshot,
+    background: 'hsl(224,100%,73%)',
+    description: `An app for making & sharing audio clips of Hermitcraft videos. Currently receives 5,000 requests per day.`,
+    achievements: false,
+    external: true,
+  },
+  {
+    id: 'enlight',
+    name: 'Enlight',
     url: '/enlight',
     github: 'https://www.github.com/dreadhalor/enlight',
     icon: EnlightIcon,
@@ -55,9 +76,24 @@ export const apps = [
     background: 'black',
     description: 'A relaxing playground of shine and shadow.',
     achievements: false,
+    external: false,
   },
   {
-    name: 'minesweeper',
+    id: 'dredged-up',
+    name: 'DredgedUp',
+    url: 'https://dredgedup.com',
+    github: 'https://www.github.com/dreadhalor/dredge',
+    icon: DredgedUpIcon,
+    alt: 'Dredged Up Icon',
+    image: DredgedUpScreenshot,
+    background: 'black',
+    description: `A companion app for the game Dredge that uses a bin-packing algorithm to optimally pack your spatial inventory for you.`,
+    achievements: false,
+    external: true,
+  },
+  {
+    id: 'minesweeper',
+    name: 'Minesweeper',
     url: '/minesweeper',
     github: 'https://www.github.com/dreadhalor/minesweeper',
     icon: MinesweeperIcon,
@@ -66,9 +102,11 @@ export const apps = [
     background: 'rgb(31,47,134)',
     description: `Ittttttt's Minesweeper!`,
     achievements: true,
+    external: false,
   },
   {
-    name: 'pathfinder-visualizer',
+    id: 'pathfinder-visualizer',
+    name: 'Pathfinder Visualizer',
     url: '/pathfinder-visualizer',
     github: 'https://www.github.com/dreadhalor/pathfinder-visualizer',
     icon: PathfinderVisualizerIcon,
@@ -77,9 +115,11 @@ export const apps = [
     background: 'rgb(108,117,125)',
     description: 'A pathfinding visualizer, coded in React.',
     achievements: true,
+    external: false,
   },
   {
-    name: 'ascii-video',
+    id: 'ascii-video',
+    name: 'Matrix-Cam',
     url: '/ascii-video',
     github: 'https://www.github.com/dreadhalor/ascii-video',
     icon: AsciiVideoIcon,
@@ -88,9 +128,11 @@ export const apps = [
     background: 'black',
     description: 'Vanilla JS app using TensorFlow.js for person detection.',
     achievements: false,
+    external: false,
   },
   {
-    name: 'shareme',
+    id: 'shareme',
+    name: 'ShareMe',
     url: '/shareme',
     github: 'https://www.github.com/dreadhalor/shareme',
     icon: ShareMeIcon,
@@ -99,9 +141,11 @@ export const apps = [
     background: 'white',
     description: 'A Pinterest-inspired social media app.',
     achievements: true,
+    external: false,
   },
   {
-    name: 'fallcrate',
+    id: 'fallcrate',
+    name: 'Fallcrate',
     url: '/fallcrate',
     github: 'https://www.github.com/dreadhalor/fallcrate',
     icon: FallcrateIcon,
@@ -111,20 +155,25 @@ export const apps = [
     description:
       'A Dropbox-inspired full-stack web app for sharing and organizing files.',
     achievements: true,
+    external: false,
   },
   {
-    name: 'dread-ui',
+    id: 'dread-ui',
+    name: 'DreadUI',
     url: '/dread-ui',
     github: 'https://www.github.com/dreadhalor/dread-ui',
     icon: DreadUiIcon,
     alt: 'dread ui',
     image: DreadUiScreenshot,
     background: '#222425',
-    description: 'A component library I use across my projects.',
+    description:
+      'My personal component library I created to use across my projects.',
     achievements: false,
+    external: false,
   },
   {
-    name: 'sketches',
+    id: 'sketches',
+    name: 'p5.js Sketches',
     url: '/sketches',
     github: 'https://github.com/dreadhalor/dreadfolio/tree/main/apps/sketches',
     icon: SketchesIcon,
@@ -133,9 +182,11 @@ export const apps = [
     background: 'black',
     description: 'Various p5 sketches to play around with.',
     achievements: false,
+    external: false,
   },
   {
-    name: 'su-done-ku',
+    id: 'su-done-ku',
+    name: 'Su-Done-Ku',
     url: '/su-done-ku',
     github: 'https://www.github.com/dreadhalor/su-done-ku',
     icon: SuDoneKuIcon,
@@ -144,9 +195,11 @@ export const apps = [
     background: '#242424',
     description: 'All other Sudoku solvers are worse than this one.',
     achievements: true,
+    external: false,
   },
   {
-    name: 'steering-text',
+    id: 'steering-text',
+    name: 'Steering Text',
     url: '/steering-text',
     github: 'https://www.github.com/dreadhalor/steering-text',
     icon: SteeringTextIcon,
@@ -155,9 +208,11 @@ export const apps = [
     background: 'black',
     description: 'Steering behavior, demonstrated through text.',
     achievements: false,
+    external: false,
   },
   {
-    name: 'gifster',
+    id: 'gifster',
+    name: 'Gifster',
     url: '/gifster',
     github: 'https://www.github.com/dreadhalor/gifster',
     icon: GifsterIcon,
@@ -166,6 +221,7 @@ export const apps = [
     background: 'white',
     description: `We're not GIPHY, but we do use their API.`,
     achievements: true,
+    external: false,
   },
 ] as const;
 export type PortfolioApp = (typeof apps)[number];

@@ -32,7 +32,7 @@ function App() {
               style={{
                 height: `calc(100% - ${appIconSizeSmall}px)`,
               }}
-              src={getAppUrl(activeApp)}
+              src={getAppUrl(activeApp, activeApp.external)}
             />
           )}
           <AppSwitcher />
