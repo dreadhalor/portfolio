@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'LigaSans';
+  src:
+    local('Heading'),
+    url(./assets/LigaSans-Bold.woff) format('woff');
+}
+
 html,
 body,
 #root {

@@ -3,11 +3,7 @@ import { appIconSizeLarge, apps } from '../constants';
 import { Variants, motion } from 'framer-motion';
 import { useAppSwitcher } from '../providers/app-switcher-context';
 import { useNavigate } from 'react-router-dom';
-import {
-  FaGithub,
-  FaExternalLinkSquareAlt,
-  FaExternalLinkAlt,
-} from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { GiLaurelCrown } from 'react-icons/gi';
 import { Tooltip, TooltipContent, TooltipTrigger } from 'dread-ui';
 
@@ -102,6 +98,7 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
         transform: `translate3d(${
           -parallaxOffset + index * getWidthWithMargin()
         }px, 0, 0)`,
+        opacity: 0,
       }}
       variants={variants}
       transition={{ duration: animating ? 0.2 : 0 }}

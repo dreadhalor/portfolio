@@ -1,6 +1,6 @@
 import { cn } from '@repo/utils';
 import { appSnapSpaceSize, apps } from '../constants';
-import { useAppSwitcher } from '../providers/app-switcher-context';
+import { useAppSwitcher } from '@frontend/providers/app-switcher-context';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { AppImage } from './app-image';
 import { Navbar } from './navbar';

@@ -1,5 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { type PortfolioApp, appSnapSpaceSize, apps } from '../constants';
+import { useIntro } from './intro-provider';
 
 type AppSwitcherContextType = {
   activeApp: PortfolioApp;
@@ -32,10 +39,11 @@ export const AppSwitcherProvider = ({ children }: AppSwitcherProviderProps) => {
   const [activeApp, setActiveApp] = useState<PortfolioApp>(apps[0]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
-  const _setActiveApp = (app?: PortfolioApp) => {
+  const _setActiveApp = useCallback((app?: PortfolioApp) => {
     setIsOpen(false);
-    setActiveApp(() => app ?? apps[0]);
-  };
+    const nextApp = app ?? apps[0];
+    setActiveApp(() => nextApp);
+  }, []);
   const scrollIndex = offset / appSnapSpaceSize;
 
   return (
