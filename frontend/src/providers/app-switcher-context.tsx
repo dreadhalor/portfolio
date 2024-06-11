@@ -1,12 +1,5 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { type PortfolioApp, appSnapSpaceSize, apps } from '../constants';
-import { useIntro } from './intro-provider';
 
 type AppSwitcherContextType = {
   activeApp: PortfolioApp;
