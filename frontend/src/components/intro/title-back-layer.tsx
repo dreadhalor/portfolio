@@ -48,7 +48,6 @@ const TitleBackLayer = ({ index }: TitleBackLayerProps) => {
 
         {step !== 'closing' && (
           <>
-            <div className='absolute inset-0 bg-black' />
             <Title
               variant='topBackground'
               color={backgroundTextColors?.top}
