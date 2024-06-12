@@ -44,11 +44,11 @@ const TitleBackLayer = ({ index }: TitleBackLayerProps) => {
           }
         }}
       >
-        <div className='absolute inset-0 bg-black' />
         <SketchPane sketchKey={sketch1} />
 
         {step !== 'closing' && (
           <>
+            <div className='absolute inset-0 bg-black' />
             <Title
               variant='topBackground'
               color={backgroundTextColors?.top}
