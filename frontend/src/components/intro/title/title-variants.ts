@@ -9,6 +9,8 @@ export type TitleProps = {
     | 'middleBackground'
     | 'bottomBackground';
   text?: string;
+  color?: string;
+  noBlend?: boolean;
 };
 
 export const getWrapperVariant =
@@ -44,19 +46,21 @@ export const textWrapperVariants = (
   },
   bottom: { y: -height / 2 },
   bottomAnimated: { y: dy - height / 2 },
+  // identical because framer-motion doesn't support multiple variants
+  topBackground: { y: -height / 2 },
+  topBackgroundAnimated: { y: -dy - height / 2 },
+  middleBackground: {
+    y: -height / 2,
+    transition: { duration: initialLoad ? 0 : 0.2 },
+  },
+  middleBackgroundAnimated: {
+    y: -height / 2,
+    transition: { duration: initialLoad ? 0 : 0.2 },
+  },
+  bottomBackground: { y: -height / 2 },
+  bottomBackgroundAnimated: { y: dy - height / 2 },
 });
 
-export const getTextVariant =
-  (animateTitle: boolean) => (variant: TitleProps['variant']) => {
-    switch (variant) {
-      case 'middle':
-        return animateTitle ? 'middleAnimated' : 'middle';
-      case 'middleBackground':
-        return 'middleAnimated';
-      default:
-        return variant;
-    }
-  };
 export const textVariants: Variants = {
   top: { fill: 'hsl(0,100%,50%)' },
   middle: {
@@ -72,11 +76,4 @@ export const textVariants: Variants = {
     strokeWidth: '0.02em',
   },
   bottom: { fill: 'hsl(240,100%,50%)' },
-  middleBackground: {
-    fill: 'hsl(0,0%,0%, 0)',
-    fillOpacity: 0,
-    strokeOpacity: 1,
-    stroke: 'hsl(0,0%,0%)',
-    strokeWidth: '0.03em',
-  },
-};
+} as const;

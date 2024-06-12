@@ -10,8 +10,13 @@ type TitleFrontLayerProps = {
 };
 const TitleFrontLayer = ({ index }: TitleFrontLayerProps) => {
   const sizeRef = useRef<HTMLDivElement>(null);
-  const { shrinkForeground, retractForeground, sketch2, setSwapLayers } =
-    useIntro();
+  const {
+    shrinkForeground,
+    retractForeground,
+    sketch2,
+    setSwapLayers,
+    foregroundTextColors,
+  } = useIntro();
 
   const { controls, variants } = useClippingPathAnimation({
     sizeRef,
@@ -40,9 +45,9 @@ const TitleFrontLayer = ({ index }: TitleFrontLayerProps) => {
       >
         <div className='absolute inset-0 bg-black' />
         <SketchPane sketchKey={sketch2} />
-        <Title variant='top' />
-        <Title variant='middle' />
-        <Title variant='bottom' />
+        <Title variant='top' color={foregroundTextColors?.top} />
+        <Title variant='middle' color={foregroundTextColors?.middle} />
+        <Title variant='bottom' color={foregroundTextColors?.bottom} />
       </motion.div>
     </div>
   );

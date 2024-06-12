@@ -110,8 +110,13 @@ const AppIcon = ({
       onClick={(e) => {
         if (!isOpen) return;
         e.stopPropagation();
-        navigate(`/#/${app?.id}`);
-        setActiveApp(app);
+        if (app?.directUrl) {
+          navigate(app?.url);
+          window.location.reload();
+        } else {
+          setActiveApp(app);
+          navigate(`/#/${app?.id}`);
+        }
       }}
     >
       {!isSelectionBox &&

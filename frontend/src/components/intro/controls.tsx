@@ -109,7 +109,7 @@ const Controls = () => {
           Swap Layers
         </Button>
         <Select value={sketch2 as string} onValueChange={setSketch2Typesafe}>
-          <SelectTrigger className='w-[200px] text-black'>
+          <SelectTrigger className='w-[220px] text-black'>
             <SelectValue>Front: {sketch2}</SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -122,7 +122,7 @@ const Controls = () => {
           </SelectContent>
         </Select>
         <Select value={sketch1 as string} onValueChange={setSketch1Typesafe}>
-          <SelectTrigger className='w-[200px] text-black'>
+          <SelectTrigger className='w-[220px] text-black'>
             <SelectValue>Back: {sketch1}</SelectValue>
           </SelectTrigger>
           <SelectContent>

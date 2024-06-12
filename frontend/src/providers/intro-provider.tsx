@@ -1,5 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { SketchKey } from '@repo/sketches';
+import { SketchKey, sketches } from '@repo/sketches';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+type TextColors = {
+  top: string;
+  middle: string;
+  bottom: string;
+};
 
 type IntroContextValue = {
   count: number;
@@ -15,9 +22,9 @@ type IntroContextValue = {
   retractForeground: boolean;
   setRetractForeground: React.Dispatch<React.SetStateAction<boolean>>;
   sketch1: SketchKey | null;
-  setSketch1: React.Dispatch<React.SetStateAction<SketchKey | null>>;
+  setSketch1: (key: SketchKey | null) => void;
   sketch2: SketchKey | null;
-  setSketch2: React.Dispatch<React.SetStateAction<SketchKey | null>>;
+  setSketch2: (key: SketchKey | null) => void;
   swapLayers: boolean;
   setSwapLayers: React.Dispatch<React.SetStateAction<boolean>>;
   step: StepKey;
@@ -28,6 +35,14 @@ type IntroContextValue = {
   setShowText: React.Dispatch<React.SetStateAction<boolean>>;
   startAnimating: boolean;
   setStartAnimating: React.Dispatch<React.SetStateAction<boolean>>;
+  backgroundTextColors: TextColors | null;
+  setBackgroundTextColors: React.Dispatch<
+    React.SetStateAction<TextColors | null>
+  >;
+  foregroundTextColors: TextColors | null;
+  setForegroundTextColors: React.Dispatch<
+    React.SetStateAction<TextColors | null>
+  >;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -42,7 +57,7 @@ export const steps = [
   { key: 'fourth-app', duration: 800 },
   { key: 'fifth-app', duration: 800 },
   { key: 'sixth-app', duration: 800 },
-  { key: 'closing', duration: 500 },
+  { key: 'closing', duration: 600 },
   { key: 'closed', duration: 0 },
 ] as const;
 export type Step = (typeof steps)[number];
@@ -70,17 +85,61 @@ export const IntroProvider = ({ children }: IntroProviderProps) => {
   const [retractBackground, setRetractBackground] = useState(false);
   const [shrinkForeground, setShrinkForeground] = useState(false);
   const [retractForeground, setRetractForeground] = useState(false);
-  const [sketchBackground, setSketchBackground] = useState<SketchKey | null>(
-    null,
-  );
-  const [sketchForeground, setSketchForeground] = useState<SketchKey | null>(
-    null,
-  );
+  const [sketchKeyBackground, setSketchKeyBackground] =
+    useState<SketchKey | null>(null);
+  const [bgTextColors, setBgTextColors] = useState<TextColors | null>(null);
+  const [sketchKeyForeground, setSketchKeyForeground] =
+    useState<SketchKey | null>(null);
+  const [fgTextColors, setFgTextColors] = useState<TextColors | null>(null);
   const [swapLayers, setSwapLayers] = useState(false);
   const [count, setCount] = useState(0);
   const [font, setFont] = useState('LigaSans');
   const [step, setStep] = useState<StepKey>('init');
   const [startAnimating, setStartAnimating] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const setSketchForeground = (key: SketchKey | null) => {
+    setSketchKeyForeground(key);
+    if (key === null) {
+      setFgTextColors(null);
+      return;
+    }
+    const sketch = sketches[key];
+    if (sketch && 'colors' in sketch) setFgTextColors(sketch.colors);
+  };
+
+  const setSketchBackground = (key: SketchKey | null) => {
+    setSketchKeyBackground(key);
+    if (key === null) {
+      setBgTextColors(null);
+      return;
+    }
+    const sketch = sketches[key];
+    if (sketch && 'colors' in sketch) setBgTextColors(sketch.colors);
+  };
+
+  const reset = () => {
+    setCount(0);
+    setAnimateTitle(false);
+    setShrinkBackground(false);
+    setRetractBackground(false);
+    setShrinkForeground(false);
+    setRetractForeground(false);
+    setSketchKeyBackground(null);
+    setSketchKeyForeground(null);
+    setSwapLayers(false);
+    setStep('init');
+    setFont('LigaSans');
+    setShowText(false);
+    setStartAnimating(false);
+  };
+
+  useEffect(() => {
+    if (location.hash === '') {
+      reset();
+    }
+  }, [location]);
 
   const animateStep = (step: StepKey) => {
     const delay = steps.find((_step) => _step.key === step)!.duration;
@@ -157,8 +216,12 @@ export const IntroProvider = ({ children }: IntroProviderProps) => {
       case 'closing':
         swapApps(null, 'front');
         break;
+      case 'closed':
+        navigate('/#/home');
+        break;
     }
-  }, [step]);
+    // I'm tired, I'll fix this later (I won't)
+  }, [step, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <IntroContext.Provider
@@ -177,9 +240,9 @@ export const IntroProvider = ({ children }: IntroProviderProps) => {
         setRetractForeground,
         swapLayers,
         setSwapLayers,
-        sketch1: sketchBackground,
+        sketch1: sketchKeyBackground,
         setSketch1: setSketchBackground,
-        sketch2: sketchForeground,
+        sketch2: sketchKeyForeground,
         setSketch2: setSketchForeground,
         step,
         setStep,
@@ -189,6 +252,10 @@ export const IntroProvider = ({ children }: IntroProviderProps) => {
         setShowText,
         startAnimating,
         setStartAnimating,
+        backgroundTextColors: bgTextColors,
+        setBackgroundTextColors: setBgTextColors,
+        foregroundTextColors: fgTextColors,
+        setForegroundTextColors: setFgTextColors,
       }}
     >
       {children}

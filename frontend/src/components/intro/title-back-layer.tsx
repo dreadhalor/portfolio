@@ -10,8 +10,14 @@ type TitleBackLayerProps = {
 };
 const TitleBackLayer = ({ index }: TitleBackLayerProps) => {
   const sizeRef = useRef<HTMLDivElement>(null);
-  const { sketch1, shrinkBackground, retractBackground, setSwapLayers, step } =
-    useIntro();
+  const {
+    sketch1,
+    shrinkBackground,
+    retractBackground,
+    setSwapLayers,
+    step,
+    backgroundTextColors,
+  } = useIntro();
 
   const { controls, variants } = useClippingPathAnimation({
     sizeRef,
@@ -43,9 +49,22 @@ const TitleBackLayer = ({ index }: TitleBackLayerProps) => {
 
         {step !== 'closing' && (
           <>
-            <Title variant='topBackground' />
-            <Title variant='middleBackground' />
-            <Title variant='bottomBackground' />
+            <Title
+              variant='topBackground'
+              color={backgroundTextColors?.top}
+              // incredibly arbitrary I know, leave me alone
+              noBlend={sketch1 === 'bad-suns'}
+            />
+            <Title
+              variant='middleBackground'
+              color={backgroundTextColors?.middle}
+              noBlend={sketch1 === 'bad-suns'}
+            />
+            <Title
+              variant='bottomBackground'
+              color={backgroundTextColors?.bottom}
+              noBlend={sketch1 === 'bad-suns'}
+            />
           </>
         )}
       </motion.div>

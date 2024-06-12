@@ -107,8 +107,13 @@ const AppImage = ({ index, parentRef }: AppImageProps) => {
         setAnimating(() => false);
       }}
       onClick={() => {
-        setActiveApp(app);
-        navigate(`/#/${app?.id}`);
+        if (app?.directUrl) {
+          navigate(app?.url);
+          window.location.reload();
+        } else {
+          setActiveApp(app);
+          navigate(`/#/${app?.id}`);
+        }
       }}
     >
       <div

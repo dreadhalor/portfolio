@@ -27,6 +27,8 @@ import {
   HermitcraftHornsScreenshot,
   DredgedUpIcon,
   DredgedUpScreenshot,
+  IntroIcon,
+  IntroScreenshot,
 } from '@repo/assets';
 
 export const getAppUrl = (app?: PortfolioApp, external = false) => {
@@ -40,6 +42,20 @@ export const getAppUrl = (app?: PortfolioApp, external = false) => {
 
 export const apps = [
   {
+    id: 'intro',
+    name: 'Intro',
+    url: '/',
+    github: 'https://github.com/dreadhalor/portfolio',
+    icon: IntroIcon,
+    alt: 'Intro Icon',
+    image: IntroScreenshot,
+    background: 'black',
+    description: `You're right, that WAS a pretty cool intro.`,
+    achievements: false,
+    external: false,
+    directUrl: true,
+  },
+  {
     id: 'home',
     name: 'Homepage',
     url: '/home',
@@ -51,6 +67,7 @@ export const apps = [
     description: `Scott Hetrick's official portfolio homepage.`,
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'hermitcraft-horns',
@@ -64,6 +81,7 @@ export const apps = [
     description: `An app for making & sharing audio clips of Hermitcraft videos. Currently receives 5,000 requests per day.`,
     achievements: false,
     external: true,
+    directUrl: false,
   },
   {
     id: 'enlight',
@@ -77,6 +95,7 @@ export const apps = [
     description: 'A relaxing playground of shine and shadow.',
     achievements: false,
     external: false,
+    directUrl: false,
   },
   {
     id: 'dredged-up',
@@ -90,6 +109,7 @@ export const apps = [
     description: `A companion app for the game Dredge that uses a bin-packing algorithm to optimally pack your spatial inventory for you.`,
     achievements: false,
     external: true,
+    directUrl: false,
   },
   {
     id: 'minesweeper',
@@ -103,6 +123,7 @@ export const apps = [
     description: `Ittttttt's Minesweeper!`,
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'pathfinder-visualizer',
@@ -116,6 +137,7 @@ export const apps = [
     description: 'A pathfinding visualizer, coded in React.',
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'ascii-video',
@@ -129,6 +151,7 @@ export const apps = [
     description: 'Vanilla JS app using TensorFlow.js for person detection.',
     achievements: false,
     external: false,
+    directUrl: false,
   },
   {
     id: 'shareme',
@@ -142,6 +165,7 @@ export const apps = [
     description: 'A Pinterest-inspired social media app.',
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'fallcrate',
@@ -156,6 +180,7 @@ export const apps = [
       'A Dropbox-inspired full-stack web app for sharing and organizing files.',
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'dread-ui',
@@ -170,6 +195,7 @@ export const apps = [
       'My personal component library I created to use across my projects.',
     achievements: false,
     external: false,
+    directUrl: false,
   },
   {
     id: 'sketches',
@@ -183,6 +209,7 @@ export const apps = [
     description: 'Various p5 sketches to play around with.',
     achievements: false,
     external: false,
+    directUrl: false,
   },
   {
     id: 'su-done-ku',
@@ -196,6 +223,7 @@ export const apps = [
     description: 'All other Sudoku solvers are worse than this one.',
     achievements: true,
     external: false,
+    directUrl: false,
   },
   {
     id: 'steering-text',
@@ -209,6 +237,7 @@ export const apps = [
     description: 'Steering behavior, demonstrated through text.',
     achievements: false,
     external: false,
+    directUrl: false,
   },
   {
     id: 'gifster',
@@ -222,6 +251,7 @@ export const apps = [
     description: `We're not GIPHY, but we do use their API.`,
     achievements: true,
     external: false,
+    directUrl: false,
   },
 ] as const;
 export type PortfolioApp = (typeof apps)[number];

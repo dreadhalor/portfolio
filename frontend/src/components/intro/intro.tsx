@@ -1,7 +1,7 @@
 import { useIntro } from '@frontend/providers/intro-provider';
 import { TitleFrontLayer } from './title-front-layer';
 import { TitleBackLayer } from './title-back-layer';
-// import { Controls } from './controls';
+import { Controls } from './controls';
 import { StartButton } from './start-button';
 import { useLocation } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ export const Intro = () => {
         <TitleBackLayer index={swapLayers ? 2 : 1} />
         <StartButton />
 
-        {/* {true && <Controls />} */}
+        {false && <Controls />}
       </div>
     </div>
   );

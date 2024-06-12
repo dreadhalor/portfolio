@@ -2,13 +2,15 @@ import { motion } from 'framer-motion';
 import { cn } from '@repo/utils';
 import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useIntro } from '@frontend/providers/intro-provider';
-import {
-  TitleProps,
-  textVariants,
-  textWrapperVariants,
-} from './title-variants';
+import { textVariants } from './title-variants';
+import { TitleProps, textWrapperVariants } from './title-variants';
 
-export const Title = ({ variant, text = `Hi, I'm Scott` }: TitleProps) => {
+export const Title = ({
+  variant,
+  text = `Hi, I'm Scott`,
+  color,
+  noBlend,
+}: TitleProps) => {
   const heightRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<SVGTextElement>(null);
   const [height, setHeight] = useState(0);
@@ -33,19 +35,7 @@ export const Title = ({ variant, text = `Hi, I'm Scott` }: TitleProps) => {
   }, [textHeight, textWidth]);
 
   const getWrapperVariant = (variant: TitleProps['variant']) => {
-    switch (variant) {
-      case 'top':
-      case 'topBackground':
-        return animateTitle ? 'topAnimated' : 'top';
-      case 'middle':
-      case 'middleBackground':
-        return animateTitle ? 'middleAnimated' : 'middle';
-      case 'bottom':
-      case 'bottomBackground':
-        return animateTitle ? 'bottomAnimated' : 'bottom';
-      default:
-        return 'middle';
-    }
+    return `${variant}${animateTitle ? 'Animated' : ''}`;
   };
 
   const getFloodFill = () => {
@@ -72,8 +62,9 @@ export const Title = ({ variant, text = `Hi, I'm Scott` }: TitleProps) => {
     <motion.h1
       ref={heightRef}
       className={cn(
-        'absolute top-1/2 w-full border-0 text-center uppercase',
-        'overflow-hidden mix-blend-screen',
+        'absolute top-1/2 w-full overflow-hidden border-0 text-center uppercase',
+        !noBlend && 'mix-blend-screen',
+        noBlend && 'mix-blend-darken',
       )}
       style={{
         fontSize: `min(15vw, 130px)`,
@@ -105,6 +96,8 @@ export const Title = ({ variant, text = `Hi, I'm Scott` }: TitleProps) => {
           </filter>
         </defs>
         <motion.text
+          // {...textProps}
+          {...(color && { fill: color })}
           ref={textRef}
           textAnchor='middle' // Center the text horizontally
           x='50%' // Position the center of the text in the middle of the SVG
@@ -113,9 +106,8 @@ export const Title = ({ variant, text = `Hi, I'm Scott` }: TitleProps) => {
           dominantBaseline='middle'
           fontSize='min(15vw, 130px)'
           fontFamily={font}
-          // filter={`url(#${`shadow-${shadowId}`})`}
-          variants={textVariants}
           opacity={showText ? 1 : 0}
+          variants={textVariants}
           animate={{
             transform: !showText ? 'translateY(100%)' : 'translateY(0%)',
             opacity: !showText ? 0 : 1,
