@@ -6,17 +6,15 @@ import './index.scss';
 import { AppSwitcherProvider } from './providers/app-switcher-context';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { IframeProvider, TooltipProvider } from 'dread-ui';
-// import { HomepageProvider, IntroProvider } from 'home-page';
 import { IntroProvider } from './providers/intro-provider';
-import { Intro } from './components/intro/intro';
-// import { App } from 'home-page/src/app.tsx';
+// import { Intro } from './components/intro/intro';
 
 const router = createBrowserRouter([
   {
     path: '/*',
     element: (
       <IntroProvider>
-        <Intro />
+        {/* <Intro /> */}
         <IframeProvider>
           <TooltipProvider>
             <AppSwitcherProvider>

@@ -61,9 +61,10 @@ const AppSwitcher = ({ className }: { className?: string }) => {
     <div
       ref={overlayRef}
       className={cn(
-        'no-scrollbar relative z-10 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
+        'relative z-10 flex h-full w-full snap-x snap-mandatory flex-nowrap overflow-auto overscroll-none border-0 transition-colors duration-200 ease-in-out',
         isOpen ? 'bg-black/70' : 'bg-transparent',
         isOpen ? 'pointer-events-auto' : 'pointer-events-none',
+        !isOpen && 'no-scrollbar',
         className,
       )}
       onScroll={handleScroll}

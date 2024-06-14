@@ -29,12 +29,12 @@ type AppSwitcherProviderProps = {
   children: React.ReactNode;
 };
 export const AppSwitcherProvider = ({ children }: AppSwitcherProviderProps) => {
-  const [activeApp, setActiveApp] = useState<PortfolioApp>(apps[1]);
+  const [activeApp, setActiveApp] = useState<PortfolioApp>(apps[0]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState(0);
   const _setActiveApp = useCallback((app?: PortfolioApp) => {
     setIsOpen(false);
-    const nextApp = app ?? apps[1];
+    const nextApp = app ?? apps[0];
     setActiveApp(() => nextApp);
   }, []);
   const scrollIndex = offset / appSnapSpaceSize;

@@ -41,20 +41,20 @@ export const getAppUrl = (app?: PortfolioApp, external = false) => {
 };
 
 export const apps = [
-  {
-    id: 'intro',
-    name: 'Intro',
-    url: '/',
-    github: 'https://github.com/dreadhalor/portfolio',
-    icon: IntroIcon,
-    alt: 'Intro Icon',
-    image: IntroScreenshot,
-    background: 'black',
-    description: `You're right, that WAS a pretty cool intro.`,
-    achievements: false,
-    external: false,
-    directUrl: true,
-  },
+  // {
+  //   id: 'intro',
+  //   name: 'Intro',
+  //   url: '/',
+  //   github: 'https://github.com/dreadhalor/portfolio',
+  //   icon: IntroIcon,
+  //   alt: 'Intro Icon',
+  //   image: IntroScreenshot,
+  //   background: 'black',
+  //   description: `You're right, that WAS a pretty cool intro.`,
+  //   achievements: false,
+  //   external: false,
+  //   directUrl: true,
+  // },
   {
     id: 'home',
     name: 'Homepage',
