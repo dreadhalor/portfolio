@@ -27,8 +27,10 @@ import {
   HermitcraftHornsScreenshot,
   DredgedUpIcon,
   DredgedUpScreenshot,
-  IntroIcon,
-  IntroScreenshot,
+  // IntroIcon,
+  // IntroScreenshot,
+  RootBeerReviewsIcon,
+  RootBeerReviewsScreenshot,
 } from '@repo/assets';
 
 export const getAppUrl = (app?: PortfolioApp, external = false) => {
@@ -123,6 +125,20 @@ export const apps = [
     description: `Ittttttt's Minesweeper!`,
     achievements: true,
     external: false,
+    directUrl: false,
+  },
+  {
+    id: 'root-beer-reviews',
+    name: 'Root Beer Reviews',
+    url: 'https://summit.scottjhetrick.com',
+    github: 'https://www.github.com/dreadhalor/root-beer-reviews',
+    icon: RootBeerReviewsIcon,
+    alt: 'Root Beer Reviews Icon',
+    image: RootBeerReviewsScreenshot,
+    background: 'rgb(249,250,251)',
+    description: `A place to review and discover new root beers.`,
+    achievements: false,
+    external: true,
     directUrl: false,
   },
   {
